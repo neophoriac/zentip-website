@@ -2,4 +2,4 @@
 plugins             : ["jekyll-include-cache"]
 
 #Theme
-remote_themee: "mmistakes/minimal-mistakes@4.27.3"
+remote_theme: "mmistakes/minimal-mistakes@4.27.3"
