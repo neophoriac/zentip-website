@@ -1,0 +1,5 @@
+# Plugins
+plugins             : ["jekyll-include-cache"]
+
+#Theme
+remote_themee: "mmistakes/minimal-mistakes@4.27.3"
