@@ -1,0 +1,116 @@
+---
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import Features from '~/components/widgets/Features.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import Steps from '~/components/widgets/Steps.astro';
+import Layout from '~/layouts/PageLayout.astro';
+import { getPermalink } from '~/utils/permalinks';
+
+const metadata = {
+  title: 'Never miss a new reply or ticket',
+  ignoreTitleTemplate: true,
+};
+---
+
+<Layout metadata={metadata}>
+  <Hero
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Read the documentation',
+        href: getPermalink('/documentation'),
+      },
+      {
+        text: 'View FAQs',
+        href: getPermalink('/faq'),
+      },
+    ]}
+  >
+    <Fragment slot="title">
+      Never miss a <span class="text-accent dark:text-white">new reply or ticket</span>.
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      Zentip keeps an eye on the activity that matters to you and sends a native Windows notification through Chrome when
+      something new arrives.
+    </Fragment>
+  </Hero>
+
+  <Features
+    id="features"
+    tagline="Stay informed"
+    title="Updates, without constantly checking"
+    subtitle="Zentip makes it easier to stay on top of new activity while you focus on everything else."
+    items={[
+      {
+        title: 'Native notifications',
+        description: 'Receive familiar Windows notifications created directly through Chrome.',
+        icon: 'tabler:bell',
+      },
+      {
+        title: 'Timely updates',
+        description: 'Know about new replies and tickets as soon as Zentip finds them.',
+        icon: 'tabler:clock',
+      },
+      {
+        title: 'Less tab switching',
+        description: 'Spend less time manually checking for updates and more time getting work done.',
+        icon: 'tabler:focus-2',
+      },
+    ]}
+  />
+
+  <Steps
+    title="How Zentip works"
+    items={[
+      {
+        title: 'Install Zentip',
+        description: 'Add the extension to Chrome and choose the activity you want to keep up with.',
+        icon: 'tabler:download',
+      },
+      {
+        title: 'Carry on with your work',
+        description: 'Zentip checks for new activity in the background.',
+        icon: 'tabler:browser-check',
+      },
+      {
+        title: 'Get notified',
+        description: 'When a new reply or ticket appears, Chrome shows a Windows notification.',
+        icon: 'tabler:bell-ringing',
+      },
+    ]}
+  />
+
+  <FAQs
+    title="Questions before you begin?"
+    subtitle="Find more answers in the Zentip FAQ."
+    items={[
+      {
+        title: 'What does Zentip notify me about?',
+        description: 'Zentip notifies you when it finds a new reply or ticket in the activity you have chosen to monitor.',
+      },
+      {
+        title: 'How are notifications shown?',
+        description: 'Zentip uses Chrome to create native Windows notifications.',
+      },
+      {
+        title: 'Where can I get help?',
+        description: 'Visit the documentation for guidance, browse the FAQ, or contact us for support.',
+      },
+    ]}
+  />
+
+  <CallToAction
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Explore the documentation',
+        href: getPermalink('/documentation'),
+      },
+    ]}
+  >
+    <Fragment slot="title">Stay up to date with Zentip.</Fragment>
+    <Fragment slot="subtitle">Everything you need to get started is in the documentation.</Fragment>
+  </CallToAction>
+</Layout>

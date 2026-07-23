@@ -1,0 +1,23 @@
+---
+import HeroText from '~/components/widgets/HeroText.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import Layout from '~/layouts/PageLayout.astro';
+
+const metadata = {
+  title: 'Frequently asked questions',
+};
+---
+
+<Layout metadata={metadata}>
+  <HeroText
+    tagline="Support"
+    title="Frequently asked questions"
+    subtitle="Find answers to common questions about Zentip."
+  />
+
+  <FAQs
+    title="We're building this guide"
+    subtitle="As Zentip evolves, this page will collect the questions and answers that help you get the most from the extension."
+    items={[]}
+  />
+</Layout>
