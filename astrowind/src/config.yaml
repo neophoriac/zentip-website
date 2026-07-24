@@ -1,7 +1,7 @@
 site:
   name: Zentip
-  site: 'https://neophoriac.github.io'
-  base: '/zentip-website'
+  site: 'https://zentip.org'
+  base: '/'
   trailingSlash: false
 
   googleSiteVerificationId: ''

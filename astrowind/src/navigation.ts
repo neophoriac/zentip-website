@@ -4,6 +4,7 @@ import { getBlogPermalink, getPermalink } from './utils/permalinks';
 export const headerData = {
   links: [
     { text: 'Home', href: getPermalink('/') },
+    { text: 'Pricing', href: getPermalink('/pricing') },
     { text: 'FAQ', href: getPermalink('/faq') },
     { text: 'Documentation', href: getPermalink('/documentation') },
     { text: 'Blog', href: getBlogPermalink() },
@@ -17,6 +18,7 @@ export const footerData = {
       title: 'Zentip',
       links: [
         { text: 'Home', href: getPermalink('/') },
+        { text: 'Pricing', href: getPermalink('/pricing') },
         { text: 'Documentation', href: getPermalink('/documentation') },
         { text: 'Blog', href: getBlogPermalink() },
       ],
@@ -30,6 +32,8 @@ export const footerData = {
     },
   ],
   secondaryLinks: [{ text: 'Privacy Policy', href: getPermalink('/privacy') }],
-  socialLinks: [{ ariaLabel: 'GitHub', icon: 'tabler:brand-github', href: 'https://github.com/neophoriac/zentip-website' }],
+  socialLinks: [
+    { ariaLabel: 'GitHub', icon: 'tabler:brand-github', href: 'https://github.com/neophoriac/zentip-website' },
+  ],
   footNote: '© 2026 Zentip. All rights reserved.',
 };

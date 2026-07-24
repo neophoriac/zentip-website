@@ -16,63 +16,110 @@ const metadata = {
 
   <ContactUs
     id="form"
-    title="Drop us a message today!"
-    subtitle="For quicker answers, explore our FAQs section. You may find the solution you're looking  for right there! If not, our support team is delighted to help you."
+    formId="zentip-contact-form"
+    action="https://formspree.io/f/mbdnprgv"
+    method="POST"
+    title="How can we help?"
+    subtitle="Tell us what you need and your message will be delivered to the Zentip support inbox."
     inputs={[
       {
         type: 'text',
         name: 'name',
         label: 'Name',
+        autocomplete: 'name',
+        required: true,
+        maxLength: 100,
       },
       {
         type: 'email',
         name: 'email',
         label: 'Email',
+        autocomplete: 'email',
+        required: true,
+        maxLength: 254,
+      },
+      {
+        type: 'select',
+        name: 'subject',
+        label: 'What would you like to tell us about?',
+        placeholder: 'Choose a topic',
+        required: true,
+        options: [
+          {
+            value: 'Zentip technical support',
+            label: 'Get technical support',
+          },
+          {
+            value: 'Zentip bug report',
+            label: 'Report a bug',
+          },
+          {
+            value: 'Zentip feature suggestion',
+            label: 'Suggest a feature',
+          },
+          {
+            value: 'Zentip account or billing question',
+            label: 'Ask about an account or billing',
+          },
+          {
+            value: 'General Zentip question',
+            label: 'Ask something else',
+          },
+        ],
       },
     ]}
     textarea={{
       label: 'Message',
+      name: 'message',
+      placeholder: 'Describe what happened, what you expected, and any steps that may help us reproduce the issue.',
+      rows: 6,
+      required: true,
+      minLength: 10,
+      maxLength: 5000,
     }}
     disclaimer={{
-      label:
-        'By submitting this contact form, you acknowledge and agree to the collection of your personal information.',
+      label: 'I have not included passwords, payment details, or private Zendesk ticket content.',
+      required: true,
     }}
-    description="Our support team typically responds within 24 business hours."
+    button="Send to Zentip support"
+    description="Submissions are delivered to support@zentip.org through Formspree."
   />
 
   <!-- Features2 Widget ************** -->
 
   <Features2
-    title="We are here to help!"
+    title="Find the right help"
+    columns={3}
     items={[
       {
-        title: 'General support',
-        description: `Chat with us for inquiries related to account management, website navigation, payment issues, accessing purchased templates or general questions about the website's functionality.`,
+        title: 'Read the documentation',
+        description: 'Learn how to set up Zentip, manage ticket views, configure notifications, and connect webhooks.',
+        icon: 'tabler:book-2',
+        callToAction: {
+          text: 'Open documentation',
+          href: '/documentation',
+          variant: 'link',
+        },
       },
       {
-        title: 'Contact sales',
-        description:
-          'Chat with us for questions about purchases, customization options, licensing for commercial use, inquiries about specific template, etc.',
+        title: 'Check common questions',
+        description: 'The FAQ covers Zendesk access, sessions, privacy, subscriptions, and other frequent questions.',
+        icon: 'tabler:help-circle',
+        callToAction: {
+          text: 'Browse the FAQ',
+          href: '/faq',
+          variant: 'link',
+        },
       },
       {
-        title: 'Technical support',
-        description:
-          'Chat with us when facing issues like template installation, problems editing difficulties, compatibility issues with software or download errors, or other technical challenges related to using the templates.',
-      },
-      {
-        title: 'Phone',
-        description: '+1 (234) 567-890',
-        icon: 'tabler:headset',
-      },
-      {
-        title: 'Email',
-        description: 'contact@support.com',
+        title: 'Email support',
+        description: 'Prefer email? You can contact the same support inbox directly at support@zentip.org.',
         icon: 'tabler:mail',
-      },
-      {
-        title: 'Location',
-        description: '1234 Lorem Ipsum St, 12345, Miami, EEUU',
-        icon: 'tabler:map-pin',
+        callToAction: {
+          text: 'Email support@zentip.org',
+          href: 'mailto:support@zentip.org',
+          variant: 'link',
+        },
       },
     ]}
   />

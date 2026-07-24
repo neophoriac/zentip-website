@@ -145,11 +145,14 @@ export interface Testimonial {
 }
 
 export interface Input {
-  type: HTMLInputTypeAttribute;
+  type: HTMLInputTypeAttribute | 'select';
   name: string;
   label?: string;
   autocomplete?: string;
   placeholder?: string;
+  required?: boolean;
+  maxLength?: number;
+  options?: Array<{ label: string; value: string }>;
 }
 
 export interface Textarea {
@@ -157,10 +160,14 @@ export interface Textarea {
   name?: string;
   placeholder?: string;
   rows?: number;
+  required?: boolean;
+  minLength?: number;
+  maxLength?: number;
 }
 
 export interface Disclaimer {
   label?: string;
+  required?: boolean;
 }
 
 // COMPONENTS
@@ -186,6 +193,11 @@ export interface Form {
   disclaimer?: Disclaimer;
   button?: string;
   description?: string;
+  action?: string;
+  method?: 'GET' | 'POST';
+  formId?: string;
+  successMessage?: string;
+  errorMessage?: string;
 }
 
 // WIDGETS
@@ -205,6 +217,7 @@ export interface Stats extends Omit<Headline, 'classes'>, Widget {
 
 export interface Pricing extends Omit<Headline, 'classes'>, Widget {
   prices?: Array<Price>;
+  currency?: string;
 }
 
 export interface Testimonials extends Omit<Headline, 'classes'>, Widget {

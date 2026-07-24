@@ -1,0 +1,45 @@
+---
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  light: ImageMetadata;
+  dark?: ImageMetadata;
+  alt: string;
+  caption?: string;
+}
+
+const { light, dark, alt, caption } = Astro.props;
+const naturalWidth = Math.min(light.width, dark?.width ?? light.width);
+const displayWidth = Math.min(naturalWidth, 850);
+---
+
+<figure class="not-prose mt-6">
+  <div
+    class="mx-auto w-full overflow-hidden rounded-xl border border-green-200 bg-white shadow-sm dark:border-green-800 dark:bg-green-900/40"
+    style={`max-width: ${displayWidth}px`}
+  >
+    <img
+      src={light.src}
+      width={light.width}
+      height={light.height}
+      alt={alt}
+      loading="lazy"
+      decoding="async"
+      class:list={['block h-auto w-full', { 'dark:hidden': Boolean(dark) }]}
+    />
+    {
+      dark && (
+        <img
+          src={dark.src}
+          width={dark.width}
+          height={dark.height}
+          alt={alt}
+          loading="lazy"
+          decoding="async"
+          class="hidden h-auto w-full dark:block"
+        />
+      )
+    }
+  </div>
+  {caption && <figcaption class="mx-auto mt-2 max-w-3xl text-center text-sm text-muted">{caption}</figcaption>}
+</figure>

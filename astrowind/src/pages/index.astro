@@ -3,9 +3,11 @@ import CallToAction from '~/components/widgets/CallToAction.astro';
 import FAQs from '~/components/widgets/FAQs.astro';
 import Features from '~/components/widgets/Features.astro';
 import Hero from '~/components/widgets/Hero.astro';
-import Steps from '~/components/widgets/Steps.astro';
+import Pricing from '~/components/widgets/Pricing.astro';
 import Layout from '~/layouts/PageLayout.astro';
 import { getPermalink } from '~/utils/permalinks';
+import popupDark from '~/assets/images/popup/main-dark.png';
+import popupLight from '~/assets/images/popup/main-light.png';
 
 const metadata = {
   title: 'Never miss a new reply or ticket',
@@ -32,8 +34,33 @@ const metadata = {
     </Fragment>
 
     <Fragment slot="subtitle">
-      Zentip keeps an eye on the activity that matters to you and sends a native Windows notification through Chrome when
-      something new arrives.
+      Zentip keeps an eye on the activity that matters to you and sends a native Windows notification through Chrome
+      when something new arrives.
+    </Fragment>
+
+    <Fragment slot="image">
+      <div class="mx-auto w-[751px] max-w-full box-content p-3 rounded-lg border-[1px] border-solid border-gray-200 shadow-lg dark:bg-gray-200/5 dark:border-green-900">
+        <div class="overflow-hidden rounded-lg">
+          <img
+            src={popupLight.src}
+            width={popupLight.width}
+            height={popupLight.height}
+            class="block h-auto w-full dark:hidden"
+            alt="Zentip extension popup showing the ticket list in light mode"
+            loading="eager"
+            fetchpriority="high"
+          />
+          <img
+            src={popupDark.src}
+            width={popupDark.width}
+            height={popupDark.height}
+            class="hidden h-auto w-full dark:block"
+            alt="Zentip extension popup showing the ticket list in dark mode"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
     </Fragment>
   </Hero>
 
@@ -54,30 +81,60 @@ const metadata = {
         icon: 'tabler:clock',
       },
       {
-        title: 'Less tab switching',
-        description: 'Spend less time manually checking for updates and more time getting work done.',
+        title: 'Integrated ticket viewer',
+        description: 'Catch up on your tickets with our native ticket viewer.',
         icon: 'tabler:focus-2',
+      },
+      {
+        title: 'Notifications menu',
+        description: 'See all your notifications in one place with the notifications menu.',
+        icon: 'tabler:menu',
+      },
+      {
+        title: 'Webhook integration',
+        description: 'Send notifications to your own systems with webhook integration.',
+        icon: 'tabler:link',
+      },
+      {
+        title: 'Your data stays private',
+        description:
+          'Zentip does not collect or send your Zendesk data, ticket content, browsing activity, or notifications to us. Billing is handled separately by ExtensionPay and Stripe.',
+        icon: 'tabler:shield-lock',
       },
     ]}
   />
 
-  <Steps
-    title="How Zentip works"
-    items={[
+
+  <Pricing
+    tagline="Simple pricing"
+    title="Choose the plan that works for you"
+    subtitle="Start a free trial or choose a plan in Zentip. You can cancel at any time through ExtensionPay."
+    currency="€"
+    prices={[
       {
-        title: 'Install Zentip',
-        description: 'Add the extension to Chrome and choose the activity you want to keep up with.',
-        icon: 'tabler:download',
+        title: 'Monthly',
+        subtitle: 'Flexible monthly access',
+        price: '3',
+        period: 'per month',
+        items: [
+          { description: 'Renews automatically each month' },
+          { description: 'Cancel any time through ExtensionPay' },
+          { description: 'Access continues until the end of your billing period' },
+        ],
       },
       {
-        title: 'Carry on with your work',
-        description: 'Zentip checks for new activity in the background.',
-        icon: 'tabler:browser-check',
-      },
-      {
-        title: 'Get notified',
-        description: 'When a new reply or ticket appears, Chrome shows a Windows notification.',
-        icon: 'tabler:bell-ringing',
+        title: 'Annual',
+        subtitle: 'Save €11 compared with monthly billing',
+        price: '25',
+        period: 'per year',
+        hasRibbon: true,
+        ribbonTitle: 'Best value',
+        items: [
+          { description: 'About €2.08 per month' },
+          { description: 'Renews automatically each year' },
+          { description: 'Cancel any time through ExtensionPay' },
+          { description: 'Access continues until the end of your billing period' },
+        ],
       },
     ]}
   />
@@ -88,7 +145,8 @@ const metadata = {
     items={[
       {
         title: 'What does Zentip notify me about?',
-        description: 'Zentip notifies you when it finds a new reply or ticket in the activity you have chosen to monitor.',
+        description:
+          'Zentip notifies you when it finds a new reply or ticket in the activity you have chosen to monitor.',
       },
       {
         title: 'How are notifications shown?',

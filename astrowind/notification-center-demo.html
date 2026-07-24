@@ -1,0 +1,310 @@
+<div class="notification-menu close open" id="notification-menu">
+  <header class="notification-menu-header">
+    <div class="flex-section flex-start align-baseline">
+      <h5>Notifications</h5>
+      <h6 class="total-notifications-container">
+        • <span style="color: inherit" id="total-notifications">5</span> tickets
+      </h6>
+    </div>
+    <div class="flex-section flex-end align-center">
+      <button id="clear-notifications" title="Clear All Notifications">
+        <div class="icon-container" aria-label="Trash icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            aria-hidden="true"
+          >
+            <path stroke="none" d="M0 0h24v24H0z"></path>
+            <path
+              d="M4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"
+            ></path>
+          </svg>
+        </div>
+      </button>
+    </div>
+  </header>
+
+  <div class="notification-menu-body">
+    <table
+      class="table table-striped ticket-table notification-list"
+      style="
+        --ticket-id-display: table-cell;
+        --subject-display: table-cell;
+        --updated-display: table-cell;
+        --requester-display: table-cell;
+        --notification-display: table-cell;
+      "
+    >
+      <thead>
+        <tr>
+          <th class="ticket-id">Ticket ID</th>
+          <th class="subject">Subject</th>
+          <th class="updated">Updated</th>
+          <th class="requester">Requester</th>
+          <th class="notification"></th>
+        </tr>
+      </thead>
+
+      <tbody class="ticket-list" id="notification-list">
+        <tr class="notification-view-header" data-view="delivery-issues-new">
+          <td colspan="4">
+            Delivery Issues — New
+            <span class="notification-count" data-view="delivery-issues-new"> • 3 tickets</span>
+          </td>
+          <td>
+            <button
+              class="clear-view-notifications-btn"
+              data-view-key="delivery-issues-new"
+              title="Clear notifications for Delivery Issues — New"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M12 3.5v17M3.5 12h17" fill="none" stroke-width="1.5" stroke-linecap="round"></path>
+              </svg>
+            </button>
+          </td>
+        </tr>
+
+        <tr class="notification-ticket-row" data-ticket-id="4827389">
+          <td class="ticket-id">
+            <div class="ticket-id-cell"><span class="status-icon status-open">O</span><span>#4827389</span></div>
+          </td>
+          <td class="subject">
+            <span class="ticket-link" data-ticket-id="4827389" data-subdomain="pixel-vault-demo">
+              It says delivered, but there's nothing here
+            </span>
+          </td>
+          <td class="updated">Today 11:36</td>
+          <td class="requester">Ethan Brooks</td>
+          <td class="notification">
+            <span class="notification-icon updated" title="Updated ticket">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M18 3a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4h-4.7l-4.8 2.9A1 1 0 0 1 7 21v-2H6a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4zm-4 9H8a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2m2-4H8a1 1 0 1 0 0 2h8a1 1 0 0 0 0-2"
+                ></path>
+              </svg>
+            </span>
+          </td>
+          <td class="requested">Wednesday 18:12</td>
+          <td class="group">Deliveries</td>
+          <td class="assignee">Jordan</td>
+          <button class="icon-container ticket-delete-btn" title="Delete notification">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path
+                d="M4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"
+              ></path>
+            </svg>
+          </button>
+        </tr>
+
+        <tr class="notification-ticket-row" data-ticket-id="4827412">
+          <td class="ticket-id">
+            <div class="ticket-id-cell"><span class="status-icon status-open">O</span><span>#4827412</span></div>
+          </td>
+          <td class="subject">
+            <span class="ticket-link" data-ticket-id="4827412" data-subdomain="pixel-vault-demo">
+              My order was sent to my old address
+            </span>
+          </td>
+          <td class="updated">Today 10:54</td>
+          <td class="requester">Nina Patel</td>
+          <td class="notification">
+            <span class="notification-icon new" title="New ticket">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M18 3a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4h-4.7l-4.8 2.9A1 1 0 0 1 7 21v-2H6a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4z"
+                ></path>
+                <path d="m8 5 .9 2 2.1.2-1.6 1.5.5 2.1L8 9.7l-1.9 1.1.5-2.1L5 7.2 7.1 7z" fill="white"></path>
+              </svg>
+            </span>
+          </td>
+          <td class="requested">Today 09:17</td>
+          <td class="group">Deliveries</td>
+          <td class="assignee">Priya</td>
+          <button class="icon-container ticket-delete-btn" title="Delete notification">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path
+                d="M4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"
+              ></path>
+            </svg>
+          </button>
+        </tr>
+
+        <tr class="notification-ticket-row" data-ticket-id="4827458">
+          <td class="ticket-id">
+            <div class="ticket-id-cell"><span class="status-icon status-open">O</span><span>#4827458</span></div>
+          </td>
+          <td class="subject">
+            <span class="ticket-link" data-ticket-id="4827458" data-subdomain="pixel-vault-demo">
+              Tracking hasn't moved in five days
+            </span>
+          </td>
+          <td class="updated">Today 09:48</td>
+          <td class="requester">Leo Martin</td>
+          <td class="notification">
+            <span class="notification-icon updated" title="Updated ticket">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M18 3a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4h-4.7l-4.8 2.9A1 1 0 0 1 7 21v-2H6a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4zm-4 9H8a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2m2-4H8a1 1 0 1 0 0 2h8a1 1 0 0 0 0-2"
+                ></path>
+              </svg>
+            </span>
+          </td>
+          <td class="requested">Yesterday 14:06</td>
+          <td class="group">Deliveries</td>
+          <td class="assignee">Jordan</td>
+          <button class="icon-container ticket-delete-btn" title="Delete notification">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path
+                d="M4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"
+              ></path>
+            </svg>
+          </button>
+        </tr>
+
+        <tr class="notification-view-header" data-view="returns-refunds-new">
+          <td colspan="4">
+            Returns &amp; Refunds — New
+            <span class="notification-count" data-view="returns-refunds-new"> • 2 tickets</span>
+          </td>
+          <td>
+            <button
+              class="clear-view-notifications-btn"
+              data-view-key="returns-refunds-new"
+              title="Clear notifications for Returns &amp; Refunds — New"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M12 3.5v17M3.5 12h17" fill="none" stroke-width="1.5" stroke-linecap="round"></path>
+              </svg>
+            </button>
+          </td>
+        </tr>
+
+        <tr class="notification-ticket-row" data-ticket-id="4827516">
+          <td class="ticket-id">
+            <div class="ticket-id-cell"><span class="status-icon status-open">O</span><span>#4827516</span></div>
+          </td>
+          <td class="subject">
+            <span class="ticket-link" data-ticket-id="4827516" data-subdomain="pixel-vault-demo">
+              The parcel arrived open and the game is gone
+            </span>
+          </td>
+          <td class="updated">Yesterday 17:22</td>
+          <td class="requester">Sofia Rossi</td>
+          <td class="notification">
+            <span class="notification-icon new" title="New ticket">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M18 3a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4h-4.7l-4.8 2.9A1 1 0 0 1 7 21v-2H6a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4z"
+                ></path>
+                <path d="m8 5 .9 2 2.1.2-1.6 1.5.5 2.1L8 9.7l-1.9 1.1.5-2.1L5 7.2 7.1 7z" fill="white"></path>
+              </svg>
+            </span>
+          </td>
+          <td class="requested">Yesterday 15:41</td>
+          <td class="group">Returns</td>
+          <td class="assignee">Marcus</td>
+          <button class="icon-container ticket-delete-btn" title="Delete notification">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path
+                d="M4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"
+              ></path>
+            </svg>
+          </button>
+        </tr>
+
+        <tr class="notification-ticket-row" data-ticket-id="4827562">
+          <td class="ticket-id">
+            <div class="ticket-id-cell"><span class="status-icon status-open">O</span><span>#4827562</span></div>
+          </td>
+          <td class="subject">
+            <span class="ticket-link" data-ticket-id="4827562" data-subdomain="pixel-vault-demo">
+              I need to return the controller from my order
+            </span>
+          </td>
+          <td class="updated">Yesterday 16:05</td>
+          <td class="requester">Daniel Kim</td>
+          <td class="notification">
+            <span class="notification-icon updated" title="Updated ticket">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M18 3a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4h-4.7l-4.8 2.9A1 1 0 0 1 7 21v-2H6a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4zm-4 9H8a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2m2-4H8a1 1 0 1 0 0 2h8a1 1 0 0 0 0-2"
+                ></path>
+              </svg>
+            </span>
+          </td>
+          <td class="requested">Tuesday 12:33</td>
+          <td class="group">Returns</td>
+          <td class="assignee">Elena</td>
+          <button class="icon-container ticket-delete-btn" title="Delete notification">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path
+                d="M4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"
+              ></path>
+            </svg>
+          </button>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

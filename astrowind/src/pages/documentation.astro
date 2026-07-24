@@ -1,6 +1,1068 @@
 ---
-import HeroText from '~/components/widgets/HeroText.astro';
 import Layout from '~/layouts/PageLayout.astro';
+import ThemeAwareImage from '~/components/documentation/ThemeAwareImage.astro';
+import ThemeComparison from '~/components/documentation/ThemeComparison.astro';
+import type { ImageMetadata } from 'astro';
+import accountDark from '~/assets/images/popup/account-dark.png';
+import accountLight from '~/assets/images/popup/account-light.png';
+import addZendeskViewDark from '~/assets/images/popup/add-zendesk-view-dark.png';
+import addZendeskViewLight from '~/assets/images/popup/add-zendesk-view-light.png';
+import appearanceDark from '~/assets/images/popup/appearance-dark.png';
+import appearanceLight from '~/assets/images/popup/appearance-light.png';
+import configurationDark from '~/assets/images/popup/configuration-dark.png';
+import configurationLight from '~/assets/images/popup/configuration-light.png';
+import connectToZendeskDark from '~/assets/images/popup/connect-to-zendesk-filled-dark.png';
+import connectToZendeskLight from '~/assets/images/popup/connect-to-zendesk-filled-light.png';
+import customListDark from '~/assets/images/popup/custom-list-dark.png';
+import customListLight from '~/assets/images/popup/custom-list-white.png';
+import dataManagementDark from '~/assets/images/popup/data-management-dark.png';
+import dataManagementLight from '~/assets/images/popup/data-management-ligt.png';
+import fullTicketConversationDark from '~/assets/images/popup/full-ticket-conv-dark.png';
+import fullTicketConversationLight from '~/assets/images/popup/full-ticket-conv-light.png';
+import lastMessageDark from '~/assets/images/popup/last-message-dark.png';
+import lastMessageLight from '~/assets/images/popup/last-message-light.png';
+import mainDark from '~/assets/images/popup/main-dark.png';
+import mainLight from '~/assets/images/popup/main-light.png';
+import notificationCenterDark from '~/assets/images/popup/notification-center-dark.png';
+import notificationCenterLight from '~/assets/images/popup/notification-center-light.png';
+import notificationSettingDark from '~/assets/images/popup/notification-setting-dark.png';
+import notificationSettingLight from '~/assets/images/popup/notification-setting-light.png';
+import refreshPollingDark from '~/assets/images/popup/refresh-polling-dark.png';
+import refreshPollingLight from '~/assets/images/popup/refresh-polling-light.png';
+import settingsDark from '~/assets/images/popup/settings-dark.png';
+import settingsLight from '~/assets/images/popup/settings-light.png';
+import viewSelectorDark from '~/assets/images/popup/view-selector-dark.png';
+import viewSelectorLight from '~/assets/images/popup/view-selector-light.png';
+import webhookSetting2Dark from '~/assets/images/popup/webhook-setting-2-dark.png';
+import webhookSetting2Light from '~/assets/images/popup/webhook-setting-2-light.png';
+import webhookSettingDark from '~/assets/images/popup/webhook-setting-dark.png';
+import webhookSettingLight from '~/assets/images/popup/webhook-setting-light.png';
+import windowNotification from '~/assets/images/popup/window notification.png';
+
+type DocumentationTopic = {
+  id: string;
+  title: string;
+  /** Add authored HTML here when the topic is ready to be written. */
+  content?: string;
+};
+
+type DocumentationSection = {
+  id: string;
+  title: string;
+  topics: DocumentationTopic[];
+};
+
+type DocumentationMedia = {
+  light: ImageMetadata;
+  dark?: ImageMetadata;
+  alt: string;
+  caption?: string;
+};
+
+const topicMedia: Record<string, DocumentationMedia> = {
+  'find-zendesk-subdomain': {
+    light: connectToZendeskLight,
+    dark: connectToZendeskDark,
+    alt: 'Zentip connection screen with the gamelad Zendesk subdomain entered',
+    caption: 'Enter only the part of the address that appears before .zendesk.com.',
+  },
+  'add-zendesk-view': {
+    light: addZendeskViewLight,
+    dark: addZendeskViewDark,
+    alt: 'Zentip screen for choosing game-store support views from Zendesk',
+  },
+  'view-visibility': {
+    light: viewSelectorLight,
+    dark: viewSelectorDark,
+    alt: 'Zentip ticket screen with the active-view selector expanded',
+    caption: 'Checked views appear as tabs; unchecked views remain available but inactive.',
+  },
+  'create-custom-view': {
+    light: customListLight,
+    dark: customListDark,
+    alt: 'Zentip custom-view form containing a name and a list of ticket IDs',
+  },
+  'ticket-list': {
+    light: mainLight,
+    dark: mainDark,
+    alt: 'Zentip ticket list containing fictional game-store support tickets',
+  },
+  'preview-latest-message': {
+    light: lastMessageLight,
+    dark: lastMessageDark,
+    alt: 'A latest-message preview displayed above a Zentip ticket list',
+  },
+  'ticket-details': {
+    light: fullTicketConversationLight,
+    dark: fullTicketConversationDark,
+    alt: 'Zentip ticket viewer showing end-user messages, an internal note, and a public agent reply',
+  },
+  'desktop-notifications': {
+    light: windowNotification,
+    alt: 'A Zentip ticket notification displayed as a Windows notification banner',
+  },
+  'notification-center': {
+    light: notificationCenterLight,
+    dark: notificationCenterDark,
+    alt: 'Zentip notification center with alerts grouped by ticket view',
+  },
+  'notification-settings': {
+    light: notificationSettingLight,
+    dark: notificationSettingDark,
+    alt: 'Zentip notification settings for quiet hours, sound, persistence, and badge style',
+  },
+  'configure-webhook': {
+    light: webhookSettingLight,
+    dark: webhookSettingDark,
+    alt: 'Zentip webhook settings with Slack selected and a webhook URL entered',
+  },
+  'webhook-views': {
+    light: webhookSetting2Light,
+    dark: webhookSetting2Dark,
+    alt: 'Zentip webhook controls for monitored views, cooldown, privacy, and testing',
+  },
+  'open-settings': {
+    light: settingsLight,
+    dark: settingsDark,
+    alt: 'The Zentip Settings screen open inside the extension',
+  },
+  'tickets-per-page': {
+    light: appearanceLight,
+    dark: appearanceDark,
+    alt: 'Zentip appearance settings for theme, page size, font size, and ticket columns',
+  },
+  'refresh-interval': {
+    light: refreshPollingLight,
+    dark: refreshPollingDark,
+    alt: 'Zentip refresh and polling settings',
+  },
+  'notification-retention': {
+    light: dataManagementLight,
+    dark: dataManagementDark,
+    alt: 'Zentip data-management settings for notification history and cached data',
+  },
+  'export-import-settings': {
+    light: configurationLight,
+    dark: configurationDark,
+    alt: 'Zentip configuration controls for exporting, importing, and resetting settings',
+  },
+  'free-trial': {
+    light: accountLight,
+    dark: accountDark,
+    alt: 'Zentip account screen showing four days remaining in a free trial',
+  },
+};
+
+const sections: DocumentationSection[] = [
+  {
+    id: 'overview',
+    title: 'Overview',
+    topics: [
+      {
+        id: 'what-is-zentip',
+        title: 'What is Zentip?',
+        content: `
+          <p>
+            Zentip is a Chrome extension that gives you a compact view of your Zendesk tickets without keeping
+            Zendesk open. It checks active views for new and updated tickets, shows desktop notifications through
+            Chrome, and can forward matching alerts to Slack, Microsoft Teams, or Discord.
+          </p>
+        `,
+      },
+      {
+        id: 'why-use-zentip',
+        title: 'Why use Zentip?',
+        content: `
+          <p>
+            Zentip keeps the ticket views you care about close at hand. You can scan a queue, preview the latest
+            reply, read a conversation, and open a ticket in Zendesk when it needs action. Periodic checks and
+            configurable alerts help you notice changes without repeatedly refreshing Zendesk yourself.
+          </p>
+        `,
+      },
+      {
+        id: 'how-zentip-works',
+        title: 'How Zentip works',
+        content: `
+          <p>
+            Zentip uses your existing signed-in Zendesk browser session to request tickets directly from Zendesk.
+            It compares each refresh with its locally cached ticket data, then marks new or updated tickets and sends
+            any enabled desktop or webhook alerts. Ticket data is not routed through a server operated by Zentip.
+          </p>
+        `,
+      },
+      {
+        id: 'requirements',
+        title: 'Requirements',
+        content: `
+          <p>To use Zentip, you need:</p>
+          <ul>
+            <li>An active Zendesk account and permission to view the tickets you want to monitor.</li>
+            <li>A Chromium-based browser that supports Chrome extensions, such as Chrome, Edge, or Brave.</li>
+            <li>An active Zendesk sign-in in the same browser profile where Zentip is installed.</li>
+          </ul>
+        `,
+      },
+    ],
+  },
+  {
+    id: 'getting-started',
+    title: 'Getting started',
+    topics: [
+      {
+        id: 'install-zentip',
+        title: 'Install Zentip',
+        content: `
+          <ol>
+            <li>Open Zentip's listing in the Chrome Web Store.</li>
+            <li>Select <strong>Add to Chrome</strong>, then confirm the installation.</li>
+            <li>Open Zentip from the Extensions menu when the installation finishes.</li>
+          </ol>
+        `,
+      },
+      {
+        id: 'pin-zentip',
+        title: 'Pin Zentip to the Chrome toolbar',
+        content: `
+          <ol>
+            <li>Select the <strong>Extensions</strong> puzzle-piece icon in the browser toolbar.</li>
+            <li>Find <strong>Zentip</strong> and select the pin icon beside it.</li>
+          </ol>
+          <p>Zentip will remain in the toolbar so you can open the ticket panel with one click.</p>
+        `,
+      },
+      {
+        id: 'start-free-trial',
+        title: 'Start the free trial',
+        content: `
+          <p>
+            Open Zentip and select <strong>Start free trial</strong>. Follow the on-screen steps to activate seven
+            days of access; no payment card is required. When the trial ends, choose a monthly or annual plan to keep
+            using the extension.
+          </p>
+        `,
+      },
+      {
+        id: 'find-zendesk-subdomain',
+        title: 'Find your Zendesk subdomain',
+        content: `
+          <p>
+            Your subdomain is the part before <strong>.zendesk.com</strong> in your Zendesk address. For example, if
+            your address is <strong>gamestore.zendesk.com</strong>, enter <strong>gamestore</strong> in Zentip. You can
+            find it in the browser address bar while Zendesk is open.
+          </p>
+        `,
+      },
+      {
+        id: 'sign-in-to-zendesk',
+        title: 'Sign in to Zendesk',
+        content: `
+          <p>
+            Sign in to your Zendesk account in the same browser profile as Zentip, then return to the extension and
+            connect your subdomain. Zentip uses that browser session, so signing out of Zendesk also prevents the
+            extension from loading tickets until you sign in again.
+          </p>
+        `,
+      },
+    ],
+  },
+  {
+    id: 'ticket-views',
+    title: 'Ticket views',
+    topics: [
+      {
+        id: 'add-zendesk-view',
+        title: 'Add a view from Zendesk',
+        content: `
+          <ol>
+            <li>Open Zentip, select the plus icon, then choose <strong>View from Zendesk</strong>.</li>
+            <li>Search the available views and select one or more to add.</li>
+            <li>Select <strong>Confirm</strong>.</li>
+          </ol>
+          <p>Newly added views are disabled by default and they need to be activated via the view selector at the bottom.</p>
+        `,
+      },
+      {
+        id: 'view-visibility',
+        title: 'View visibility',
+        content: `
+          <p>
+            Open the view selector at the bottom of the ticket screen and select the views you want to keep active.
+            Active views appear as tabs and are included when Zentip checks for ticket changes. Uncheck a view to hide
+            and stop monitoring it without deleting it.
+          </p>
+        `,
+      },
+      {
+        id: 'view-ordering',
+        title: 'View ordering',
+        content: `
+          <p>
+            Drag a tab left or right to change its position. You can also drag views inside and outside the tab drawer. Zentip
+            saves the order for the next time you open the extension.
+          </p>
+        `,
+      },
+      {
+        id: 'tab-drawer',
+        title: 'Tab drawer',
+        content: `
+          <p>
+            When the tab bar runs out of room, extra views move into the tab drawer. Select the drawer button on the
+            right of the tab bar to open it, then select a view to display it.
+          </p>
+        `,
+      },
+      {
+        id: 'view-refreshing',
+        title: 'View refreshing',
+        content: `
+          <p>
+            Select the refresh icon in the upper-right corner of the ticket screen to check active views now. By
+            default, Zentip also checks automatically every 55 seconds. You can change the interval or switch to
+            manual refresh only in <a href="#refresh-interval">Settings</a>.
+          </p>
+        `,
+      },
+      {
+        id: 'create-custom-view',
+        title: 'Create a custom ticket-ID view',
+        content: `
+          <ol>
+            <li>Open Zentip, select the plus icon, then choose <strong>Custom View</strong>.</li>
+            <li>Enter a name and add the Zendesk ticket IDs you want to monitor, one ID per line.</li>
+            <li>Select <strong>Continue</strong> so Zentip can validate and preview the tickets.</li>
+            <li>Select <strong>Save Custom View</strong>.</li>
+          </ol>
+          <p>The custom view becomes is disabled by default and needs to be actived via the view selector at the bottom.</p>
+        `,
+      },
+      {
+        id: 'edit-custom-view',
+        title: 'Edit a custom view',
+        content: `
+          <p>
+            Open the custom view and select <strong>Edit View</strong> in the lower-left corner. Change its name or
+            ticket IDs, select <strong>Continue</strong> to validate the updated list, then select
+            <strong>Update Custom View</strong>.
+          </p>
+        `,
+      },
+      {
+        id: 'delete-custom-view',
+        title: 'Delete a custom view',
+        content: `
+          <p>
+            Open the view selector at the bottom of the ticket screen, point to the custom view, and select its trash
+            icon. Deleting a custom view removes the saved list from Zentip; it does not delete any Zendesk tickets.
+          </p>
+        `,
+      },
+      {
+        id: 'ticket-notifications',
+        title: 'Ticket notifications',
+        content: `
+          <p>
+            New and updated tickets are marked in their views and added to the notification center. Select the bell
+            icon in the upper-right corner of Zentip to review alerts grouped by view.
+          </p>
+        `,
+      },
+    ],
+  },
+  {
+    id: 'working-with-tickets',
+    title: 'Working with tickets',
+    topics: [
+      {
+        id: 'ticket-list',
+        title: 'Read the ticket list',
+        content: `
+          <p>
+            The selected view lists each ticket's ID and status, subject, update time, and requester. Depending on
+            your column settings, it can also show the requested time, group, and assignee. Select anywhere in a row
+            to read the ticket in Zentip, or select its subject to open the ticket directly in Zendesk.
+          </p>
+        `,
+      },
+      {
+        id: 'preview-latest-message',
+        title: 'Preview the latest message',
+        content: `
+          <p>
+            Point to a ticket row to preview the latest message without opening the full conversation. Select the row
+            when you need the complete ticket history and attachments.
+          </p>
+        `,
+      },
+
+      {
+        id: 'ticket-details',
+        title: 'Ticket details, followers, CCs, and tags',
+        content: `
+          <p>The built-in ticket viewer can display:</p>
+          <ul>
+            <li>Requester, ticket ID, status, brand, and assignee.</li>
+            <li>Requested and last-updated times.</li>
+            <li>Followers, CCs, tags, subject, and the full comment history.</li>
+            <li>Public replies, internal notes, author roles, and attachments.</li>
+          </ul>
+          <p>
+            The viewer is read-only. Select <strong>Edit Ticket</strong> in the lower-right corner to open Zendesk and
+            make changes there.
+          </p>
+        `,
+      },
+    ],
+  },
+  {
+    id: 'notifications',
+    title: 'Notifications',
+    topics: [
+      {
+        id: 'desktop-notifications',
+        title: 'Desktop notifications',
+        content: `
+          <p>
+            Zentip uses Chrome's notification system to alert you when it detects a new ticket or an update to an
+            existing ticket. Chrome and your operating system must both allow notifications for them to appear.
+          </p>
+          <p>
+            In Zentip settings, you can choose a sound, set quiet hours, and keep desktop notifications visible until
+            you dismiss them.
+          </p>
+        `,
+      },
+      {
+        id: 'notification-center',
+        title: 'Notification center',
+        content: `
+          <p>
+            Select the bell icon in the upper-right corner of Zentip to open the notification center. It keeps recent
+            new-ticket and ticket-update alerts together and groups them by active view.
+          </p>
+        `,
+      },
+      {
+        id: 'notification-settings',
+        title: 'Notification settings',
+        content: `
+          <p>Open <strong>Settings</strong> to configure:</p>
+          <ul>
+            <li><strong>Quiet hours:</strong> suppress automatic checks and alerts between your chosen times.</li>
+            <li><strong>Notification sound:</strong> choose a sound or select Silent.</li>
+            <li><strong>Show until dismissed:</strong> keep desktop notifications visible until you close them.</li>
+            <li><strong>Badge style:</strong> show an unread count, a dot, or no badge.</li>
+          </ul>
+          <p>History retention and automatic clearing are available farther down the same settings screen.</p>
+        `,
+      },
+      {
+        id: 'clear-notifications',
+        title: 'Clear notifications',
+        content: `
+          <p>A yellow icon marks a new ticket; a blue icon marks an update to an existing ticket.</p>
+          <ul>
+            <li>Select a notification row to read the ticket in Zentip.</li>
+            <li>Select its subject to open the ticket in Zendesk.</li>
+            <li>Select the trash icon on one notification to remove only that alert.</li>
+            <li>Select the trash icon beside a view to clear that group's alerts.</li>
+            <li>Select the trash icon at the top of the notification center to clear everything.</li>
+          </ul>
+        `,
+      },
+      {
+        id: 'notification-badge',
+        title: 'Extension badge',
+        content: `
+          <p>
+            Zentip can show the number of unread alerts on its toolbar icon. If you prefer a quieter indicator,
+            change <strong>Badge Style</strong> in Settings to a dot or hide it completely.
+          </p>
+        `,
+      },
+    ],
+  },
+  {
+    id: 'webhook-integrations',
+    title: 'Webhook integrations',
+    topics: [
+      {
+        id: 'supported-webhooks',
+        title: 'Slack, Microsoft Teams, and Discord',
+        content: `
+          <p>
+            Zentip can send ticket alerts to a Slack channel, Microsoft Teams chat or channel, or Discord channel.
+            It formats each alert for the selected service and posts it directly from Chrome to the webhook URL you
+            provide. The alert does not pass through a server operated by Zentip.
+          </p>
+          <p>Use the official guide for your destination to create and copy an incoming webhook URL:</p>
+          <ul>
+            <li>
+              <a href="https://api.slack.com/messaging/webhooks" target="_blank" rel="noreferrer">Slack incoming webhooks</a>
+            </li>
+            <li>
+              <a href="https://support.microsoft.com/en-US/Workflows/send-messages-in-teams-using-incoming-webhooks" target="_blank" rel="noreferrer">Microsoft Teams Workflows incoming webhooks</a>
+            </li>
+            <li>
+              <a href="https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks" target="_blank" rel="noreferrer">Discord webhooks</a>
+            </li>
+          </ul>
+          <p>
+            For Microsoft Teams, open the Workflows app and choose either
+            <strong>Send webhook alerts to a channel</strong> or <strong>Send webhook alerts to a chat</strong>,
+            depending on where you want Zentip alerts to appear. Choose the destination, save the workflow, and copy
+            its webhook URL into Zentip. These templates allow Zentip to post its Message Card directly to the URL
+            without a Microsoft authentication token. Legacy Microsoft 365 Connector webhook URLs are no longer
+            supported by Microsoft.
+          </p>
+        `,
+      },
+      {
+        id: 'configure-webhook',
+        title: 'Add a webhook URL',
+        content: `
+          <ol>
+            <li>Open Zentip and select the profile icon.</li>
+            <li>Select <strong>Settings</strong>.</li>
+            <li>Under <strong>Webhook Integration</strong>, enable webhook notifications.</li>
+            <li>Select <strong>Slack</strong>, <strong>Microsoft Teams</strong>, or <strong>Discord</strong>.</li>
+            <li>Create a webhook in that service and copy its URL.</li>
+            <li>Paste the URL into <strong>Webhook URL</strong>.</li>
+          </ol>
+          <p>
+            Zentip remembers a separate URL for each supported service, so switching webhook types does not replace
+            the URLs saved for the other services. Treat every webhook URL as a secret: anyone who obtains it may be
+            able to post to its destination.
+          </p>
+        `,
+      },
+      {
+        id: 'webhook-keywords',
+        title: 'Watch keywords',
+        content: `
+          <p>
+            Enter a comma-separated list of words or phrases that should trigger a webhook, such as
+            <strong>urgent, outage, payment failed</strong>. Matching is not case-sensitive. Zentip checks the ticket
+            subject and description and sends the webhook when at least one configured keyword is found.
+          </p>
+          <p>Leave the field empty to allow every otherwise eligible new or updated ticket to trigger a webhook.</p>
+        `,
+      },
+      {
+        id: 'webhook-views',
+        title: 'Choose monitored views',
+        content: `
+          <p>
+            Use <strong>Monitor Views</strong> to limit webhook alerts to selected active views. You can select
+            Zentip's built-in views, views imported from Zendesk, or custom ticket-ID views that are currently active.
+          </p>
+          <p>
+            Leave the selection empty to monitor all active views. Removing a view from Zentip also prevents that view
+            from triggering future webhook alerts.
+          </p>
+        `,
+      },
+      {
+        id: 'webhook-cooldown',
+        title: 'Set a notification cooldown',
+        content: `
+          <p>
+            The cooldown prevents repeated webhook messages for the same ticket within a short period. Choose no
+            cooldown, 5 minutes, 15 minutes, 30 minutes, or 1 hour. The default is 15 minutes.
+          </p>
+          <p>
+            A cooldown applies per ticket. Alerts for other matching tickets can still be sent while one ticket is in
+            its cooldown period.
+          </p>
+        `,
+      },
+      {
+        id: 'hide-webhook-details',
+        title: 'Hide ticket details',
+        content: `
+          <p>
+            By default, a webhook alert can include the ticket subject, status, a message excerpt, requester,
+            assignee, brand, and a link to the ticket. The exact layout varies by Slack, Teams, and Discord.
+          </p>
+          <p>
+            Enable <strong>Hide Details</strong> to omit the message content and personal or account details such as
+            the requester, assignee, and brand. The alert still includes the ticket ID, subject, status, and Zendesk
+            link so the recipient can identify and open the ticket.
+          </p>
+          <p>
+            Webhook alerts are sent to the third-party service you choose. Review that service's access controls,
+            retention settings, and privacy practices before sending ticket information to it.
+          </p>
+        `,
+      },
+      {
+        id: 'test-webhook',
+        title: 'Send a test notification',
+        content: `
+          <p>
+            After selecting a service and entering its URL, select <strong>Test Webhook</strong>. Zentip sends a
+            clearly labelled test ticket using the current webhook type and privacy setting. The test does not use a
+            real Zendesk ticket.
+          </p>
+          <p>
+            Confirm that the message appears in the intended channel or chat before enabling the integration for live
+            alerts. If it does not arrive, check that the URL belongs to the selected service, the destination still
+            exists, and your workspace or server permissions allow incoming webhook posts.
+          </p>
+        `,
+      },
+    ],
+  },
+  {
+    id: 'settings',
+    title: 'Settings',
+    topics: [
+      {
+        id: 'open-settings',
+        title: 'Open settings',
+        content: `
+          <p>
+            Open Zentip, select the profile icon, then select <strong>Settings</strong>. Changes are saved as you make
+            them unless the control includes its own save or import button.
+          </p>
+        `,
+      },
+      {
+        id: 'theme',
+        title: 'Theme',
+        content: `
+          <p>
+            Choose <strong>Light</strong>, <strong>Dark</strong>, or <strong>System</strong>. System follows your
+            browser or operating-system colour preference and changes automatically when that preference changes.
+          </p>
+        `,
+      },
+      {
+        id: 'tickets-per-page',
+        title: 'Tickets per page',
+        content: `
+          <p>
+            Choose 10, 25, 30, 50, or 100 tickets per page. The default is 30. A larger page shows more of the queue
+            at once but may take longer to render on accounts with detailed tickets.
+          </p>
+        `,
+      },
+      {
+        id: 'font-size',
+        title: 'Font size',
+        content: `
+          <p>
+            Choose <strong>Small</strong>, <strong>Medium</strong>, or <strong>Large</strong> to change text size inside
+            the extension. This setting does not alter Zendesk itself.
+          </p>
+        `,
+      },
+      {
+        id: 'ticket-columns',
+        title: 'Default ticket list columns',
+        content: `
+          <p>
+            Choose which columns appear in ticket lists. Ticket ID, Subject, Updated, and Requester are enabled by
+            default; Requested, Group, and Assignee can be added when you need them. Changes apply across views.
+          </p>
+        `,
+      },
+      {
+        id: 'refresh-interval',
+        title: 'Refresh interval',
+        content: `
+          <p>
+            Choose how often Zentip checks active views: 30 seconds, 55 seconds, 1 minute, 2 minutes, 5 minutes, or
+            10 minutes. The default is 55 seconds. Shorter intervals find changes sooner but make more requests to
+            Zendesk.
+          </p>
+        `,
+      },
+      {
+        id: 'manual-refresh',
+        title: 'Manual refresh only',
+        content: `
+          <p>
+            Enable <strong>Manual refresh only</strong> to stop scheduled checks. Zentip will load updates only when
+            you select the refresh icon. This also means new-ticket and update alerts will not be detected in the
+            background.
+          </p>
+        `,
+      },
+      {
+        id: 'notification-retention',
+        title: 'Notification history retention',
+        content: `
+          <p>
+            Choose how long notification-center entries are kept: 1, 3, 7, 14, 30, or 90 days, or Forever. The
+            default is 30 days. This controls Zentip's local notification history, not Zendesk ticket history or
+            operating-system notifications.
+          </p>
+        `,
+      },
+      {
+        id: 'auto-clear-read',
+        title: 'Auto-clear read notifications',
+        content: `
+          <p>
+            Choose when an alert should be removed after you read it: immediately, after 1 hour, 24 hours, or 7 days.
+            Select <strong>Never</strong> to keep read alerts until their retention limit is reached or you clear them
+            manually.
+          </p>
+        `,
+      },
+      {
+        id: 'clear-cached-data',
+        title: 'Clear cached data',
+        content: `
+          <p>
+            Select <strong>Clear Cached Data</strong> to remove locally cached ticket and temporary extension data.
+            Your settings are preserved. Zentip will request fresh ticket data the next time you open or refresh it,
+            so the first load may take slightly longer.
+          </p>
+        `,
+      },
+      {
+        id: 'clear-data-on-close',
+        title: 'Clear data when Chrome closes',
+        content: `
+          <p>
+            Enable this option to clear cached extension data when the browser closes. This is useful on shared
+            devices, although Zentip may need to fetch more data when the browser starts again. It does not delete
+            tickets from Zendesk.
+          </p>
+        `,
+      },
+      {
+        id: 'export-import-settings',
+        title: 'Export or import settings',
+        content: `
+          <p>
+            Select <strong>Export Settings</strong> to download a JSON backup of your configuration. To restore or
+            move it to another browser profile, select <strong>Import Settings</strong> and choose that JSON file.
+            Review the imported configuration afterward, especially webhook URLs and active views.
+          </p>
+          <p>Keep exported files private because they may contain configuration details such as webhook URLs.</p>
+        `,
+      },
+      {
+        id: 'reset-settings',
+        title: 'Reset settings to defaults',
+        content: `
+          <p>
+            Select <strong>Reset Settings</strong> to restore Zentip's default configuration. Export a backup first
+            if you might want to recover your current setup. Resetting Zentip settings does not change Zendesk.
+          </p>
+        `,
+      },
+    ],
+  },
+  {
+    id: 'account-and-billing',
+    title: 'Account and billing',
+    topics: [
+      {
+        id: 'free-trial',
+        title: 'Seven-day free trial',
+        content: `
+          <p>
+            New users can start a seven-day trial without entering card details. The account screen shows when the
+            trial began and how much time remains. Subscribe before or after it expires to continue using Zentip.
+          </p>
+        `,
+      },
+      {
+        id: 'subscription-plans',
+        title: 'Monthly and annual plans',
+        content: `
+          <p>
+            Zentip is available for <strong>€3 per month</strong> or <strong>€25 per year</strong>. Both plans unlock
+            the same extension features and renew automatically until cancelled; the annual plan lowers the effective
+            monthly cost. See the <a href="../pricing">pricing page</a> for the current offer.
+          </p>
+        `,
+      },
+      {
+        id: 'account-status',
+        title: 'View your account status',
+        content: `
+          <p>
+            Open Zentip, select the profile icon, then select <strong>Account</strong>. The status card can show your
+            trial or subscription state, email, plan, and relevant start or renewal dates. A past-due or expiring
+            state is also shown here when action is needed.
+          </p>
+        `,
+      },
+      {
+        id: 'manage-subscription',
+        title: 'Manage your subscription',
+        content: `
+          <p>
+            From the account screen, select <strong>Manage Subscription</strong> to open the secure ExtensionPay
+            billing page. Use it to review your subscription, update billing details, or cancel. Return to Zentip
+            afterward and reopen the account screen to refresh the displayed status.
+          </p>
+        `,
+      },
+      {
+        id: 'cancel-or-resubscribe',
+        title: 'Cancel or resubscribe',
+        content: `
+          <p>
+            Cancel through <strong>Manage Subscription</strong>. Your access continues until the end of the paid
+            billing period and the account screen shows the scheduled end date. If access is still active, select
+            <strong>Resubscribe</strong> to resume renewal; if it has ended, choose a plan again.
+          </p>
+        `,
+      },
+      {
+        id: 'payment-problems',
+        title: 'Payment problems',
+        content: `
+          <p>
+            If a renewal fails, Zentip may show a past-due status and an <strong>Update Payment</strong> action. Open
+            it, confirm the card and billing details with the payment provider, then return to the account screen.
+          </p>
+          <p>
+            If a successful purchase is not recognized, make sure you are using the same browser profile and email
+            used for the purchase, then select the account login or status refresh action. If the problem continues,
+            <a href="#contact-support">contact support</a> with the billing email and approximate purchase time—never
+            send a full card number.
+          </p>
+        `,
+      },
+    ],
+  },
+  {
+    id: 'privacy-and-permissions',
+    title: 'Privacy and permissions',
+    topics: [
+      {
+        id: 'chrome-permissions',
+        title: 'Chrome permissions used by Zentip',
+        content: `
+          <p>Zentip requests only the browser access needed for its extension features:</p>
+          <ul>
+            <li><strong>Notifications:</strong> show new-ticket and ticket-update alerts.</li>
+            <li><strong>Storage:</strong> save settings, views, ticket cache, and notification history.</li>
+            <li><strong>Tabs:</strong> open a selected ticket in Zendesk.</li>
+            <li><strong>Alarms and offscreen access:</strong> schedule background checks and play alert sounds.</li>
+            <li><strong>Zendesk site access:</strong> request data from the Zendesk subdomain you connect.</li>
+            <li><strong>ExtensionPay site access:</strong> check trial and subscription status.</li>
+          </ul>
+          <p>See the <a href="../privacy">privacy policy</a> for the complete data-handling summary.</p>
+        `,
+      },
+      {
+        id: 'zendesk-data',
+        title: 'How Zentip handles Zendesk data',
+        content: `
+          <p>
+            Zentip requests permitted ticket, view, user, comment, and attachment information directly from Zendesk
+            using your active browser sign-in. The extension processes that information in the browser to build
+            views, detect changes, and display notifications. It does not send Zendesk content to a server operated
+            by Zentip.
+          </p>
+          <p>Zentip can only display data your signed-in Zendesk account is allowed to access.</p>
+        `,
+      },
+      {
+        id: 'local-data',
+        title: 'Locally stored data and settings',
+        content: `
+          <p>
+            Zentip uses Chrome's local and synced extension storage for your subdomain, settings, active and custom
+            views, refresh timestamps, notification history, and enough cached ticket data to identify changes. Some
+            settings may follow your Chrome profile when browser sync is enabled.
+          </p>
+          <p>
+            Use <a href="#clear-cached-data">Clear Cached Data</a> when you want Zentip to discard its ticket cache,
+            or enable clearing when Chrome closes. Signing out or losing access also limits retained ticket cache.
+          </p>
+        `,
+      },
+      {
+        id: 'webhook-privacy',
+        title: 'Webhook data and privacy',
+        content: `
+          <p>
+            When webhooks are enabled, Zentip sends eligible alert data directly from your browser to the Slack,
+            Microsoft Teams, or Discord webhook URL you supplied. The destination service then handles that message
+            under its own access, storage, retention, and privacy rules.
+          </p>
+          <p>
+            Treat webhook URLs as secrets and restrict the destination to appropriate members. Enable
+            <a href="#hide-webhook-details">Hide Details</a> to omit the message excerpt, requester, assignee, and
+            brand when a destination should receive less ticket information.
+          </p>
+        `,
+      },
+      {
+        id: 'billing-providers',
+        title: 'ExtensionPay and Stripe',
+        content: `
+          <p>
+            Zentip uses ExtensionPay to manage trials and subscription access and Stripe to process payments. Billing
+            details are entered on their secure pages; Zentip does not receive or store your full card number. Review
+            the <a href="https://extensionpay.com/#faq" target="_blank" rel="noreferrer">ExtensionPay FAQ</a> and
+            <a href="https://stripe.com/privacy" target="_blank" rel="noreferrer">Stripe Privacy Policy</a> for more
+            information.
+          </p>
+        `,
+      },
+    ],
+  },
+  {
+    id: 'troubleshooting',
+    title: 'Troubleshooting',
+    topics: [
+      {
+        id: 'cannot-connect',
+        title: "Zentip can't connect to Zendesk",
+        content: `
+          <ol>
+            <li>Open your Zendesk subdomain in the same browser profile and confirm that it loads normally.</li>
+            <li>Check that Zentip contains only the subdomain, not the full URL or <strong>.zendesk.com</strong>.</li>
+            <li>Confirm your Zendesk role has permission to view tickets and views.</li>
+            <li>Reopen Zentip and try connecting or refreshing again.</li>
+          </ol>
+          <p>
+            If your organisation uses a sign-in redirect or session policy, complete that sign-in in Zendesk first.
+            Contact your Zendesk administrator if the browser cannot access the account directly.
+          </p>
+        `,
+      },
+      {
+        id: 'signed-out',
+        title: 'Zentip says you are not signed in',
+        content: `
+          <p>
+            Zentip shares the Zendesk session in your current browser profile. Open Zendesk, sign in again, and leave
+            the sign-in flow only after the ticket interface loads. Then reopen Zentip and select refresh. Also check
+            that you did not sign in through a different browser profile or private window.
+          </p>
+        `,
+      },
+      {
+        id: 'missing-views',
+        title: 'Views or tickets are missing',
+        content: `
+          <ul>
+            <li>Open the view selector and make sure the view is active.</li>
+            <li>Use the plus icon and <strong>View from Zendesk</strong> if it has not been added yet.</li>
+            <li>Check the tab drawer when there is not enough room for every active tab.</li>
+            <li>Select refresh, then verify that the ticket is present and visible to you in Zendesk.</li>
+            <li>For a custom view, select <strong>Edit View</strong> and confirm that the ticket ID is correct.</li>
+          </ul>
+          <p>Views and tickets restricted by Zendesk permissions cannot be made visible by Zentip.</p>
+        `,
+      },
+      {
+        id: 'notifications-not-appearing',
+        title: 'Notifications are not appearing',
+        content: `
+          <ol>
+            <li>Check that Chrome notifications are allowed in your operating-system notification settings.</li>
+            <li>
+              On Windows, open the notification settings for your specific browser—such as Google Chrome or
+              Microsoft Edge—and enable <strong>Show notification banners</strong>.
+            </li>
+            <li>Make sure Chrome is not blocked by Focus Assist, Do Not Disturb, or an equivalent mode.</li>
+            <li>Check Zentip's quiet hours and confirm the current time is outside the quiet period.</li>
+            <li>Disable <strong>Manual refresh only</strong> if you expect background detection.</li>
+            <li>Make sure the affected view is active, then select refresh to test for changes.</li>
+          </ol>
+          <p>If alerts appear silently, choose a notification sound other than <strong>Silent</strong>.</p>
+        `,
+      },
+      {
+        id: 'webhook-not-working',
+        title: 'Webhook notifications are not arriving',
+        content: `
+          <ol>
+            <li>Select the correct service and confirm its webhook URL is complete and still active.</li>
+            <li>Use <strong>Test Webhook</strong>. If the test fails, recreate the URL using the service's official guide.</li>
+            <li>For Teams, use the Workflows template for sending webhook alerts to a channel or chat.</li>
+            <li>Check that the ticket belongs to a monitored active view and matches at least one watch keyword.</li>
+            <li>Wait for the per-ticket cooldown to finish before expecting another alert for the same ticket.</li>
+          </ol>
+          <p>
+            An empty keyword field allows all otherwise eligible tickets, and an empty monitored-view selection uses
+            all active views. Workspace policies may require an administrator to allow incoming webhooks.
+          </p>
+        `,
+      },
+      {
+        id: 'settings-not-applying',
+        title: 'Settings are not applying',
+        content: `
+          <p>
+            Close and reopen Zentip, then check the control again. For refresh settings, allow the current scheduled
+            cycle to finish or select refresh manually. If you imported a settings file, confirm it was a valid Zentip
+            JSON export and review each imported value.
+          </p>
+          <p>
+            If the problem remains, export a backup, select <strong>Reset Settings</strong>, and test the affected
+            option with its default value. You can then import the backup if needed.
+          </p>
+        `,
+      },
+      {
+        id: 'subscription-not-recognized',
+        title: 'Subscription is not recognized',
+        content: `
+          <ol>
+            <li>Open the account screen and use its login or status refresh action.</li>
+            <li>Confirm you are using the browser profile and email associated with the subscription.</li>
+            <li>Open <strong>Manage Subscription</strong> and check that the plan is active and payment is current.</li>
+            <li>If payment is past due, use <strong>Update Payment</strong> and reopen Zentip afterward.</li>
+          </ol>
+          <p>
+            If access still does not update, <a href="#contact-support">contact support</a> with the billing email,
+            plan, and approximate purchase date. Do not include card details.
+          </p>
+        `,
+      },
+    ],
+  },
+  {
+    id: 'support',
+    title: 'Support',
+    topics: [
+      {
+        id: 'contact-support',
+        title: 'Contact support',
+        content: `
+          <p>
+            If the documentation and troubleshooting steps do not resolve the issue, use the
+            <a href="../contact">contact page</a> to reach Zentip support. Include the email address where you want a
+            reply and a clear summary of what you need help with.
+          </p>
+          <p>Never send passwords, full payment-card details, webhook URLs, or private ticket content.</p>
+        `,
+      },
+      {
+        id: 'report-a-problem',
+        title: 'Report a problem',
+        content: `
+          <p>A useful problem report includes:</p>
+          <ul>
+            <li>The browser name and version and your Zentip version.</li>
+            <li>The section or feature you were using and the steps that produced the issue.</li>
+            <li>What you expected to happen and what happened instead.</li>
+            <li>The exact error message, if one appeared.</li>
+            <li>A screenshot with customer names, ticket text, email addresses, and webhook URLs removed.</li>
+          </ul>
+          <p>
+            For connection problems, include only the Zendesk subdomain if it is safe to share. For billing problems,
+            include the billing email and approximate transaction time, never the card number.
+          </p>
+        `,
+      },
+    ],
+  },
+];
 
 const metadata = {
   title: 'Documentation',
@@ -8,9 +1070,157 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
-  <HeroText
-    tagline="Documentation"
-    title="Learn how to use Zentip"
-    subtitle="Setup guides, feature explanations, and troubleshooting will live here."
-  />
+  <div class="w-full px-4 py-12 sm:px-6 md:py-16 lg:pl-0 lg:pr-8">
+    <div class="grid gap-12 lg:grid-cols-[17rem_minmax(0,1fr)] lg:gap-16">
+      <aside class="docs-scrollbar lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:self-start lg:overflow-y-auto">
+        <nav
+          aria-label="Documentation"
+          class="rounded-2xl border border-green-200 bg-green-0/80 p-5 shadow-sm lg:rounded-l-none lg:border-l-0 dark:border-green-800 dark:bg-green-900/60"
+        >
+          <p class="mb-5 text-sm font-bold uppercase tracking-wider text-green-700 dark:text-green-300">On this page</p>
+
+          <ul class="space-y-5">
+            {
+              sections.map((section) => (
+                <li>
+                  <a
+                    href={`#${section.id}`}
+                    class="block font-semibold text-green-900 transition hover:text-green-600 dark:text-green-100 dark:hover:text-green-300"
+                  >
+                    {section.title}
+                  </a>
+                  <ul class="mt-2 space-y-1.5 border-l border-green-200 pl-3 dark:border-green-800">
+                    {section.topics.map((topic) => (
+                      <li>
+                        <a
+                          href={`#${topic.id}`}
+                          class="block text-sm leading-5 text-muted transition hover:text-green-700 dark:hover:text-green-300"
+                        >
+                          {topic.title}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </aside>
+
+      <article class="min-w-0 max-w-5xl">
+        <header class="mb-14 border-b border-green-200 pb-8 dark:border-green-800">
+          <p class="mb-3 text-sm font-bold uppercase tracking-wider text-green-700 dark:text-green-300">
+            Documentation
+          </p>
+          <h1 class="font-heading text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl dark:text-gray-100">
+            Zentip documentation
+          </h1>
+        </header>
+
+        <div class="space-y-16">
+          {
+            sections.map((section) => (
+              <section id={section.id} class="scroll-mt-28">
+                <h2 class="font-heading text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
+                  {section.title}
+                </h2>
+
+                <div class="mt-6 divide-y divide-green-100 border-t border-green-200 dark:divide-green-900 dark:border-green-800">
+                  {section.topics.map((topic) => (
+                    <section id={topic.id} class="min-h-20 scroll-mt-28 py-6">
+                      <h3 class="font-heading text-xl font-semibold text-gray-900 dark:text-gray-100">{topic.title}</h3>
+                      {topic.content ? (
+                        <div
+                          class="prose prose-base prose-a:font-medium prose-a:text-green-700 mt-4 max-w-none dark:prose-invert dark:prose-a:text-green-300"
+                          set:html={topic.content}
+                        />
+                      ) : null}
+                      {topicMedia[topic.id] ? (
+                        <ThemeAwareImage
+                          light={topicMedia[topic.id].light}
+                          dark={topicMedia[topic.id].dark}
+                          alt={topicMedia[topic.id].alt}
+                          caption={topicMedia[topic.id].caption}
+                        />
+                      ) : null}
+                      {topic.id === 'theme' ? (
+                        <ThemeComparison
+                          light={mainLight}
+                          dark={mainDark}
+                          lightAlt="Zentip ticket list in light mode"
+                          darkAlt="Zentip ticket list in dark mode"
+                          caption="Both themes show the same ticket data and controls."
+                        />
+                      ) : null}
+                    </section>
+                  ))}
+                </div>
+              </section>
+            ))
+          }
+        </div>
+      </article>
+    </div>
+  </div>
 </Layout>
+
+<style>
+  :global(html) {
+    --docs-scrollbar-track: var(--green-0);
+    --docs-scrollbar-thumb: var(--green-500);
+    --docs-scrollbar-thumb-hover: var(--green-700);
+    scrollbar-color: var(--docs-scrollbar-thumb) var(--docs-scrollbar-track);
+    scrollbar-width: thin;
+  }
+
+  :global(html.dark) {
+    --docs-scrollbar-track: var(--green-950);
+    --docs-scrollbar-thumb: var(--green-700);
+    --docs-scrollbar-thumb-hover: var(--green-400);
+  }
+
+  :global(html)::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+
+  :global(html)::-webkit-scrollbar-track {
+    background: var(--docs-scrollbar-track);
+  }
+
+  :global(html)::-webkit-scrollbar-thumb {
+    border: 3px solid var(--docs-scrollbar-track);
+    border-radius: 999px;
+    background: var(--docs-scrollbar-thumb);
+  }
+
+  :global(html)::-webkit-scrollbar-thumb:hover {
+    background: var(--docs-scrollbar-thumb-hover);
+  }
+
+  .docs-scrollbar {
+    scrollbar-color: var(--docs-scrollbar-thumb) transparent;
+    scrollbar-width: thin;
+  }
+
+  .docs-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .docs-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .docs-scrollbar::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: 999px;
+    background: var(--docs-scrollbar-thumb);
+    background-clip: padding-box;
+  }
+
+  .docs-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--docs-scrollbar-thumb-hover);
+    background-clip: padding-box;
+  }
+</style>

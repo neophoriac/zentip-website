@@ -1,0 +1,50 @@
+---
+import HeroText from '~/components/widgets/HeroText.astro';
+import Pricing from '~/components/widgets/Pricing.astro';
+import Layout from '~/layouts/PageLayout.astro';
+
+const metadata = {
+  title: 'Pricing',
+};
+---
+
+<Layout metadata={metadata}>
+  <HeroText
+    tagline="Pricing"
+    title="Simple, transparent pricing"
+    subtitle="Start a free trial in Zentip, then choose monthly or annual billing."
+  />
+
+  <Pricing
+    title="Choose your subscription"
+    subtitle="Both plans renew automatically. You can cancel through ExtensionPay at any time, and access continues until the end of your current billing period."
+    currency="€"
+    prices={[
+      {
+        title: 'Monthly',
+        subtitle: 'Flexible monthly access',
+        price: '3',
+        period: 'per month',
+        items: [
+          { description: 'Renews automatically every month' },
+          { description: 'Cancel any time through ExtensionPay' },
+          { description: 'Active until your billing period ends after cancellation' },
+        ],
+      },
+      {
+        title: 'Annual',
+        subtitle: 'The best value for regular use',
+        price: '25',
+        period: 'per year',
+        hasRibbon: true,
+        ribbonTitle: 'Save €11',
+        items: [
+          { description: 'About €2.08 per month' },
+          { description: 'Renews automatically every year' },
+          { description: 'Cancel any time through ExtensionPay' },
+          { description: 'Active until your billing period ends after cancellation' },
+        ],
+      },
+    ]}
+  />
+</Layout>
