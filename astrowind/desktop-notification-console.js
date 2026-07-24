@@ -1,3 +1,5 @@
+/* global chrome */
+
 (async () => {
   const notificationId = 'zentip-screenshot-ticket-4827389';
 
