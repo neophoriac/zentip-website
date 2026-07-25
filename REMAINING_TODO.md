@@ -6,7 +6,7 @@ This checklist covers the Chrome extension, website, payments, privacy, and Chro
 
 ## Before uploading to the Chrome Web Store
 
-- [ ] Bump the extension version for the release and run `package-webstore.ps1` from the extension repository.
+- [ ] Bump the extension version for the release and run `npm run package:min` from the extension repository; upload the generated `dist/zentip-<version>-min.zip` archive.
 - [ ] Load the generated ZIP as an unpacked extension in a clean Chrome profile and confirm there are no install, CSP, or permission errors.
 - [ ] Test on Chrome 109 and the current stable Chrome release, or raise `minimum_chrome_version` if older-version testing fails.
 - [ ] Test connect, disconnect, session expiry, and loss of Zendesk access using a dedicated test Zendesk account with fictional data.

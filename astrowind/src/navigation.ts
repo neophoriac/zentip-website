@@ -1,4 +1,5 @@
 import { getBlogPermalink, getPermalink } from './utils/permalinks';
+import { CHROME_WEB_STORE_URL } from './constants';
 
 // This file is the single source of truth for links shown in the site header and footer.
 export const headerData = {
@@ -20,6 +21,7 @@ export const footerData = {
         { text: 'Home', href: getPermalink('/') },
         { text: 'Pricing', href: getPermalink('/pricing') },
         { text: 'Documentation', href: getPermalink('/documentation') },
+        { text: 'Chrome Web Store', href: CHROME_WEB_STORE_URL },
         { text: 'Blog', href: getBlogPermalink() },
       ],
     },

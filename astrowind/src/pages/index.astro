@@ -5,6 +5,7 @@ import Features from '~/components/widgets/Features.astro';
 import Hero from '~/components/widgets/Hero.astro';
 import Pricing from '~/components/widgets/Pricing.astro';
 import Layout from '~/layouts/PageLayout.astro';
+import { CHROME_WEB_STORE_URL } from '~/constants';
 import { getPermalink } from '~/utils/permalinks';
 import popupDark from '~/assets/images/popup/main-dark.png';
 import popupLight from '~/assets/images/popup/main-light.png';
@@ -20,12 +21,14 @@ const metadata = {
     actions={[
       {
         variant: 'primary',
-        text: 'Read the documentation',
-        href: getPermalink('/documentation'),
+        text: 'Add to Chrome',
+        href: CHROME_WEB_STORE_URL,
+        target: '_blank',
+        icon: 'tabler:brand-chrome',
       },
       {
-        text: 'View FAQs',
-        href: getPermalink('/faq'),
+        text: 'Read the documentation',
+        href: getPermalink('/documentation'),
       },
     ]}
   >
@@ -165,12 +168,18 @@ const metadata = {
     actions={[
       {
         variant: 'primary',
+        text: 'Add Zentip to Chrome',
+        href: CHROME_WEB_STORE_URL,
+        target: '_blank',
+        icon: 'tabler:brand-chrome',
+      },
+      {
         text: 'Explore the documentation',
         href: getPermalink('/documentation'),
       },
     ]}
   >
     <Fragment slot="title">Stay up to date with Zentip.</Fragment>
-    <Fragment slot="subtitle">Everything you need to get started is in the documentation.</Fragment>
+    <Fragment slot="subtitle">Install Zentip from the Chrome Web Store and start your 7-day free trial.</Fragment>
   </CallToAction>
 </Layout>

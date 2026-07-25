@@ -2,6 +2,7 @@
 import Layout from '~/layouts/PageLayout.astro';
 import ThemeAwareImage from '~/components/documentation/ThemeAwareImage.astro';
 import ThemeComparison from '~/components/documentation/ThemeComparison.astro';
+import { CHROME_WEB_STORE_URL } from '~/constants';
 import type { ImageMetadata } from 'astro';
 import accountDark from '~/assets/images/popup/account-dark.png';
 import accountLight from '~/assets/images/popup/account-light.png';
@@ -214,7 +215,11 @@ const sections: DocumentationSection[] = [
         title: 'Install Zentip',
         content: `
           <ol>
-            <li>Open Zentip's listing in the Chrome Web Store.</li>
+            <li>
+              <a href="${CHROME_WEB_STORE_URL}" target="_blank" rel="noopener noreferrer">
+                Open Zentip's listing in the Chrome Web Store
+              </a>.
+            </li>
             <li>Select <strong>Add to Chrome</strong>, then confirm the installation.</li>
             <li>Open Zentip from the Extensions menu when the installation finishes.</li>
           </ol>
