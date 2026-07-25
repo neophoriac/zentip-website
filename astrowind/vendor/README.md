@@ -1,4 +1,2 @@
-This folder will become an integration for **AstroWind**.
-
-We are working to allow updates to template instances.
-These are changes on the way to new **AstroWind v2**
+This folder contains Zentip's custom Astro integration for loading the site
+configuration from `src/config.yaml`.

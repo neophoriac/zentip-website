@@ -1,7 +1,9 @@
 ---
-import { SITE } from 'astrowind:config';
+import favIcon from '~/assets/favicons/favicon.svg';
+import zentipLogo from '~/assets/brand/zentip.svg';
 ---
 
-<span class="self-center text-2xl md:text-xl font-bold text-gray-900 whitespace-nowrap dark:text-white">
-  {SITE?.name}
+<span class="flex items-center gap-2 self-center whitespace-nowrap">
+  <img src={favIcon.src} width="32" height="32" alt="" aria-hidden="true" />
+  <img src={zentipLogo.src} width="419" height="143" alt="Zentip" class="h-7 w-auto text-gray-900 dark:invert md:h-6" />
 </span>

@@ -1,6 +1,6 @@
 services:
-  astrowind:
+  zentip-website:
     build: .
-    container_name: astrowind
+    container_name: zentip-website
     ports:
       - 8080:8080

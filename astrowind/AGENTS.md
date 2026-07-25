@@ -1,8 +1,8 @@
-# AstroWind Agent Instructions
+# Zentip Website Agent Instructions
 
 ## Project Overview
 
-AstroWind is a free, open-source website template built with **Astro v6** and **Tailwind CSS v4**. It generates a fully static site optimized for performance, SEO, and accessibility.
+Zentip's product, documentation, pricing, and support website is built with **Astro v6** and **Tailwind CSS v4**. It generates a fully static site optimized for performance, SEO, and accessibility.
 
 **Stack:** Astro v6 | Tailwind CSS v4 | TypeScript 5.9 | MDX | Sharp
 
@@ -48,12 +48,12 @@ Use `~/` to import from `src/`:
 
 ```typescript
 import Image from '~/components/common/Image.astro';
-import { SITE } from 'astrowind:config';
+import { SITE } from 'zentip:config';
 ```
 
 ### Configuration System
 
-Site config lives in `src/config.yaml` and is loaded as a Vite virtual module `astrowind:config` by the custom integration in `vendor/integration/`. Exports: `SITE`, `I18N`, `METADATA`, `APP_BLOG`, `UI`, `ANALYTICS`.
+Site config lives in `src/config.yaml` and is loaded as a Vite virtual module `zentip:config` by the custom integration in `vendor/integration/`. Exports: `SITE`, `I18N`, `METADATA`, `APP_BLOG`, `UI`, `ANALYTICS`.
 
 ## Tailwind CSS v4
 

@@ -31,7 +31,11 @@ export const footerData = {
       ],
     },
   ],
-  secondaryLinks: [{ text: 'Privacy Policy', href: getPermalink('/privacy') }],
+  secondaryLinks: [
+    { text: 'Terms of Service', href: getPermalink('/terms') },
+    { text: 'Privacy Policy', href: getPermalink('/privacy') },
+    { text: 'Refund Policy', href: getPermalink('/refund-policy') },
+  ],
   socialLinks: [
     { ariaLabel: 'GitHub', icon: 'tabler:brand-github', href: 'https://github.com/neophoriac/zentip-website' },
   ],

@@ -18,9 +18,9 @@ metadata:
   openGraph:
     site_name: Zentip
     images:
-      - url: '~/assets/images/default.png'
-        width: 1200
-        height: 628
+      - url: '~/assets/images/popup/main-light.png'
+        width: 1500
+        height: 1200
     type: website
   twitter:
     handle: ''
