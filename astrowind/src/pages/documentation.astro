@@ -741,9 +741,9 @@ const sections: DocumentationSection[] = [
           <p>
             Select <strong>Export Settings</strong> to download a JSON backup of your configuration. To restore or
             move it to another browser profile, select <strong>Import Settings</strong> and choose that JSON file.
-            Review the imported configuration afterward, especially webhook URLs and active views.
+            Review the imported configuration afterward, especially active views and notification preferences.
           </p>
-          <p>Keep exported files private because they may contain configuration details such as webhook URLs.</p>
+          <p>Webhook URLs are stored separately and are not included in the settings export.</p>
         `,
       },
       {
@@ -846,10 +846,14 @@ const sections: DocumentationSection[] = [
           <ul>
             <li><strong>Notifications:</strong> show new-ticket and ticket-update alerts.</li>
             <li><strong>Storage:</strong> save settings, views, ticket cache, and notification history.</li>
-            <li><strong>Tabs:</strong> open a selected ticket in Zendesk.</li>
-            <li><strong>Alarms and offscreen access:</strong> schedule background checks and play alert sounds.</li>
+            <li><strong>Alarms:</strong> schedule background checks at the interval you choose.</li>
+            <li><strong>Offscreen access:</strong> play the alert sound you select.</li>
             <li><strong>Zendesk site access:</strong> request data from the Zendesk subdomain you connect.</li>
             <li><strong>ExtensionPay site access:</strong> check trial and subscription status.</li>
+            <li>
+              <strong>Optional webhook site access:</strong> requested only when you enable a supported Slack,
+              Microsoft Teams, or Discord webhook. Zentip requests access only to that provider's webhook host.
+            </li>
           </ul>
           <p>See the <a href="../privacy">privacy policy</a> for the complete data-handling summary.</p>
         `,
@@ -872,9 +876,10 @@ const sections: DocumentationSection[] = [
         title: 'Locally stored data and settings',
         content: `
           <p>
-            Zentip uses Chrome's local and synced extension storage for your subdomain, settings, active and custom
-            views, refresh timestamps, notification history, and enough cached ticket data to identify changes. Some
-            settings may follow your Chrome profile when browser sync is enabled.
+            Zentip uses Chrome extension storage for your subdomain, settings, active and custom views, refresh
+            timestamps, notification history, and enough cached ticket data to identify changes. Ticket data and
+            webhook URLs stay in local extension storage. Some non-secret preferences may follow your Chrome profile
+            when browser sync is enabled.
           </p>
           <p>
             Use <a href="#clear-cached-data">Clear Cached Data</a> when you want Zentip to discard its ticket cache,

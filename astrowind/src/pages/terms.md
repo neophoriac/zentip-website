@@ -25,6 +25,8 @@ Zentip depends on services and software outside the operator's control, includin
 
 Zentip is an independent product. It is not affiliated with, sponsored by, or endorsed by Zendesk, Google, Microsoft, ExtensionPay, Stripe, or any webhook provider.
 
+Your subscription contract is with Neophytos Gregoriou, trading as Zentip. Google and the Chrome Web Store are not the seller and do not provide the subscription, support, cancellation, or refund service.
+
 ## Your license
 
 While you have an active trial or subscription, you receive a limited, personal, revocable, non-exclusive, non-transferable license to use Zentip in accordance with these Terms.
