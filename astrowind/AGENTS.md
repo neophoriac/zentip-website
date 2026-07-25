@@ -2,9 +2,9 @@
 
 ## Project Overview
 
-Zentip's product, documentation, pricing, and support website is built with **Astro v6** and **Tailwind CSS v4**. It generates a fully static site optimized for performance, SEO, and accessibility.
+Zentip's product, documentation, pricing, and support website is built with **Astro v7** and **Tailwind CSS v4**. It generates a fully static site optimized for performance, SEO, and accessibility.
 
-**Stack:** Astro v6 | Tailwind CSS v4 | TypeScript 5.9 | MDX | Sharp
+**Stack:** Astro v7 | Tailwind CSS v4 | TypeScript 5.9 | MDX | Sharp
 
 ## Quick Reference
 
@@ -75,7 +75,7 @@ Components use `twMerge` from `tailwind-merge` v3 for conditional class composit
 
 ## Content Collections
 
-Defined in `src/content.config.ts` using the Astro v6 Content Layer API with `glob()` loader. Posts are in `src/data/post/` as `.md` or `.mdx` files.
+Defined in `src/content.config.ts` using Astro's Content Layer API with the `glob()` loader. Posts are in `src/data/post/` as `.md` or `.mdx` files.
 
 Post frontmatter: `title` (required), `publishDate`, `updateDate`, `draft`, `excerpt`, `image`, `category`, `tags`, `author`, `metadata`.
 
