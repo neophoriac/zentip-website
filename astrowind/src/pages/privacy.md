@@ -78,11 +78,13 @@ The Zentip website does not use Zentip-operated analytics, advertising trackers,
 
 The website is hosted by GitHub Pages. GitHub may process technical request information such as your IP address, browser details, requested page, and request time to deliver and secure the website. See the [GitHub General Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
-## Contacting support
+## Contacting support and uninstall feedback
 
-If you use the website contact form, the name, email address, subject, and message you provide are processed by [Static Forms](https://www.staticforms.dev/privacy-policy) and delivered to the Zentip support inbox. Static Forms also applies spam filtering and stores submitted information according to the retention period for Zentip's plan. You can instead contact support directly by email.
+If you use the website contact form, the name, email address, subject, and message you provide are processed by [Static Forms](https://www.staticforms.dev/privacy-policy) and delivered to the Zentip support inbox. If you submit the optional uninstall-feedback form, Static Forms processes the reason and comments you provide, plus your email address only if you choose to enter it. Opening the uninstall page does not automatically send your Zendesk domain, account information, ticket data, or an extension identifier.
 
-This information is used to respond to your request, provide support, maintain the security and reliability of Zentip, and establish or defend legal claims when necessary. The legal bases are taking steps at your request, performing the Zentip contract, and legitimate interests in providing support and protecting the service.
+Static Forms also applies spam filtering and stores submitted information according to the retention period for Zentip's plan. You can instead contact support directly by email.
+
+This information is used to respond to your request, understand why people stop using Zentip, improve the product, maintain the security and reliability of Zentip, and establish or defend legal claims when necessary. The legal bases are taking steps at your request, performing the Zentip contract, and legitimate interests in providing support, improving Zentip, and protecting the service.
 
 Do not include passwords, full payment-card details, webhook URLs, or private Zendesk ticket content in a support request.
 

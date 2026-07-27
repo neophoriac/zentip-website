@@ -1,0 +1,113 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import HeroText from '~/components/widgets/HeroText.astro';
+import ContactUs from '~/components/widgets/Contact.astro';
+
+const metadata = {
+  title: 'Uninstall feedback',
+  description: 'Share optional feedback about why you uninstalled Zentip.',
+  robots: {
+    index: false,
+    follow: true,
+  },
+};
+
+const staticFormsKey = import.meta.env.PUBLIC_STATIC_FORMS_KEY?.trim();
+
+if (!staticFormsKey) {
+  throw new Error(
+    'PUBLIC_STATIC_FORMS_KEY is required. Add it to astrowind/.env locally and to the STATIC_FORMS_KEY GitHub Actions secret.'
+  );
+}
+
+const staticFormsAction = 'https://www.staticforms.dev/api/submit';
+---
+
+<Layout metadata={metadata}>
+  <HeroText tagline="Uninstall feedback" title="Sorry to see you go" />
+
+  <ContactUs
+    id="feedback"
+    formId="zentip-uninstall-feedback"
+    action={staticFormsAction}
+    method="POST"
+    hiddenInputs={[
+      { name: 'apiKey', value: staticFormsKey },
+      { name: 'subject', value: 'Zentip uninstall feedback' },
+    ]}
+    title="What made you uninstall Zentip?"
+    subtitle="A quick answer helps decide what to improve next. The form is optional and does not receive your Zendesk domain, account, or ticket data."
+    inputs={[
+      {
+        type: 'select',
+        name: 'reason',
+        label: 'Main reason',
+        placeholder: 'Choose the closest answer',
+        required: true,
+        options: [
+          {
+            value: 'I could not connect Zentip to Zendesk',
+            label: 'I could not connect it to Zendesk',
+          },
+          {
+            value: 'Notifications did not work as expected',
+            label: 'Notifications did not work as expected',
+          },
+          {
+            value: 'Zentip was difficult to use',
+            label: 'It was difficult to use',
+          },
+          {
+            value: 'Zentip was missing a feature',
+            label: 'It was missing a feature I need',
+          },
+          {
+            value: 'Zentip was too expensive',
+            label: 'It was too expensive',
+          },
+          {
+            value: 'I no longer use Zendesk',
+            label: 'I no longer use Zendesk',
+          },
+          {
+            value: 'I was only testing Zentip',
+            label: 'I was only testing it',
+          },
+          {
+            value: 'I had a privacy or security concern',
+            label: 'I had a privacy or security concern',
+          },
+          {
+            value: 'Other',
+            label: 'Something else',
+          },
+        ],
+      },
+      {
+        type: 'email',
+        name: 'email',
+        label: 'Email (optional)',
+        autocomplete: 'email',
+        placeholder: 'Only if you would like a reply',
+        required: false,
+        maxLength: 254,
+      },
+    ]}
+    textarea={{
+      label: 'Anything else you would like us to know? (optional)',
+      name: 'message',
+      placeholder: 'A short detail about what went wrong or what would bring you back.',
+      rows: 5,
+      required: false,
+      maxLength: 3000,
+    }}
+    disclaimer={{
+      label: 'I have not included passwords, webhook URLs, payment details, or private Zendesk ticket content.',
+      required: true,
+    }}
+    button="Send feedback"
+    successMessage="Thank you. Your feedback has been sent and will help make Zentip better."
+    errorMessage="Sorry, we could not send your feedback. You can email support@zentip.org instead."
+    description="The response is delivered to support@zentip.org through Static Forms. See the Privacy Policy for details."
+  />
+</Layout>
