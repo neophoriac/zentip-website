@@ -16,7 +16,7 @@ if (!staticFormsKey) {
   );
 }
 
-const staticFormsAction = `https://api.staticforms.dev/submit/${encodeURIComponent(staticFormsKey)}`;
+const staticFormsAction = 'https://www.staticforms.dev/api/submit';
 ---
 
 <Layout metadata={metadata}>
@@ -29,6 +29,7 @@ const staticFormsAction = `https://api.staticforms.dev/submit/${encodeURICompone
     formId="zentip-contact-form"
     action={staticFormsAction}
     method="POST"
+    hiddenInputs={[{ name: 'apiKey', value: staticFormsKey }]}
     title="How can we help?"
     subtitle="Tell us what you need and your message will be delivered to the Zentip support inbox."
     inputs={[

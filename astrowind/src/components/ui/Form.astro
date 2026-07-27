@@ -11,6 +11,7 @@ const {
   action,
   method = 'POST',
   formId = 'contact-form',
+  hiddenInputs = [],
   successMessage = 'Thanks! Your message has been sent to Zentip support.',
   errorMessage = 'Sorry, we could not send your message. Please try again or email support@zentip.org.',
 } = Astro.props;
@@ -19,6 +20,8 @@ const statusId = `${formId}-status`;
 ---
 
 <form id={formId} action={action} method={method} data-enhanced-form={action ? 'true' : undefined}>
+  {hiddenInputs.map(({ name, value }) => <input type="hidden" name={name} value={value} />)}
+
   <div class="absolute -left-[10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
     <label for={`${formId}-company`}>Leave this field empty</label>
     <input id={`${formId}-company`} type="text" name="honeypot" tabindex="-1" autocomplete="off" />
