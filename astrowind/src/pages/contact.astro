@@ -7,6 +7,16 @@ import Features2 from '~/components/widgets/Features2.astro';
 const metadata = {
   title: 'Contact',
 };
+
+const staticFormsKey = import.meta.env.PUBLIC_STATIC_FORMS_KEY?.trim();
+
+if (!staticFormsKey) {
+  throw new Error(
+    'PUBLIC_STATIC_FORMS_KEY is required. Add it to astrowind/.env locally and to the STATIC_FORMS_KEY GitHub Actions secret.'
+  );
+}
+
+const staticFormsAction = `https://api.staticforms.dev/submit/${encodeURIComponent(staticFormsKey)}`;
 ---
 
 <Layout metadata={metadata}>
@@ -17,7 +27,7 @@ const metadata = {
   <ContactUs
     id="form"
     formId="zentip-contact-form"
-    action="https://formspree.io/f/mbdnprgv"
+    action={staticFormsAction}
     method="POST"
     title="How can we help?"
     subtitle="Tell us what you need and your message will be delivered to the Zentip support inbox."
@@ -82,7 +92,7 @@ const metadata = {
       required: true,
     }}
     button="Send to Zentip support"
-    description="Submissions are delivered to support@zentip.org through Formspree."
+    description="Submissions are delivered to support@zentip.org through Static Forms."
   />
 
   <!-- Features2 Widget ************** -->
