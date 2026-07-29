@@ -1,5 +1,6 @@
 ---
 import CallToAction from '~/components/widgets/CallToAction.astro';
+import BrowserInstallLabels from '~/components/common/BrowserInstallLabels.astro';
 import FAQs from '~/components/widgets/FAQs.astro';
 import Features from '~/components/widgets/Features.astro';
 import Hero from '~/components/widgets/Hero.astro';
@@ -24,6 +25,7 @@ const metadata = {
         text: 'Add to Chrome',
         href: CHROME_WEB_STORE_URL,
         target: '_blank',
+        'data-browser-install-label': 'short',
       },
       {
         text: 'Read the documentation',
@@ -36,8 +38,9 @@ const metadata = {
     </Fragment>
 
     <Fragment slot="subtitle">
-      Zentip keeps an eye on the activity that matters to you and sends a native desktop notification through Chrome
-      when something new arrives. Start with a 7-day free trial; a monthly or annual subscription is required afterward.
+      Zentip keeps an eye on the activity that matters to you and sends a native desktop notification through your
+      browser when something new arrives. Start with a 7-day free trial; a monthly or annual subscription is required
+      afterward.
     </Fragment>
 
     <Fragment slot="image">
@@ -170,6 +173,7 @@ const metadata = {
         text: 'Add Zentip to Chrome',
         href: CHROME_WEB_STORE_URL,
         target: '_blank',
+        'data-browser-install-label': 'long',
       },
       {
         text: 'Explore the documentation',
@@ -180,4 +184,6 @@ const metadata = {
     <Fragment slot="title">Stay up to date with Zentip.</Fragment>
     <Fragment slot="subtitle">Install Zentip from the Chrome Web Store and start your 7-day free trial.</Fragment>
   </CallToAction>
+
+  <BrowserInstallLabels />
 </Layout>

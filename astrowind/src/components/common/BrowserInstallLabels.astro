@@ -1,0 +1,87 @@
+<script>
+  type BrowserNavigator = Navigator & {
+    brave?: {
+      isBrave?: () => Promise<boolean>;
+    };
+    userAgentData?: {
+      brands?: Array<{ brand: string; version: string }>;
+    };
+  };
+
+  type BrowserDetails = {
+    name: string;
+    canInstallChromeExtension: boolean;
+    isMobile: boolean;
+  };
+
+  const detectBrowser = async (): Promise<BrowserDetails> => {
+    const browserNavigator = navigator as BrowserNavigator;
+    const userAgent = navigator.userAgent;
+    const brands = browserNavigator.userAgentData?.brands?.map(({ brand }) => brand.toLowerCase()) ?? [];
+    const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(userAgent);
+
+    try {
+      if (await browserNavigator.brave?.isBrave?.()) {
+        return { name: 'Brave', canInstallChromeExtension: !isMobile, isMobile };
+      }
+    } catch {
+      // Continue with user-agent detection when Brave's helper is unavailable.
+    }
+
+    if (/EdgA|EdgiOS|Edg\//i.test(userAgent) || brands.some((brand) => brand.includes('microsoft edge'))) {
+      return { name: 'Edge', canInstallChromeExtension: !isMobile, isMobile };
+    }
+
+    if (/OPR\/|Opera/i.test(userAgent) || brands.some((brand) => brand.includes('opera'))) {
+      return { name: 'Opera', canInstallChromeExtension: !isMobile, isMobile };
+    }
+
+    if (/Vivaldi/i.test(userAgent) || brands.some((brand) => brand.includes('vivaldi'))) {
+      return { name: 'Vivaldi', canInstallChromeExtension: !isMobile, isMobile };
+    }
+
+    if (/Firefox|FxiOS/i.test(userAgent)) {
+      return { name: 'Firefox', canInstallChromeExtension: false, isMobile };
+    }
+
+    if (/SamsungBrowser/i.test(userAgent)) {
+      return { name: 'Samsung Internet', canInstallChromeExtension: false, isMobile: true };
+    }
+
+    if (
+      /Chrome|CriOS|Chromium/i.test(userAgent) ||
+      brands.some((brand) => brand.includes('google chrome') || brand === 'chromium')
+    ) {
+      return { name: 'Chrome', canInstallChromeExtension: !isMobile, isMobile };
+    }
+
+    if (/Safari/i.test(userAgent)) {
+      return { name: 'Safari', canInstallChromeExtension: false, isMobile };
+    }
+
+    return { name: 'your browser', canInstallChromeExtension: false, isMobile };
+  };
+
+  const updateInstallLabels = async () => {
+    const browser = await detectBrowser();
+
+    document.querySelectorAll<HTMLElement>('[data-browser-install-label]').forEach((element) => {
+      const format = element.dataset.browserInstallLabel;
+
+      if (browser.isMobile) {
+        element.textContent = format === 'long' ? 'View the desktop extension' : 'Desktop extension';
+        return;
+      }
+
+      if (!browser.canInstallChromeExtension) {
+        element.textContent = format === 'long' ? 'View Zentip for Chrome' : 'View Chrome version';
+        return;
+      }
+
+      element.textContent = format === 'long' ? `Add Zentip to ${browser.name}` : `Add to ${browser.name}`;
+    });
+  };
+
+  updateInstallLabels();
+  document.addEventListener('astro:page-load', updateInstallLabels);
+</script>
