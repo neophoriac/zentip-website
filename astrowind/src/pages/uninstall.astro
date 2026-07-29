@@ -12,15 +12,8 @@ const metadata = {
   },
 };
 
-const staticFormsKey = import.meta.env.PUBLIC_STATIC_FORMS_KEY?.trim();
-
-if (!staticFormsKey) {
-  throw new Error(
-    'PUBLIC_STATIC_FORMS_KEY is required. Add it to astrowind/.env locally and to the STATIC_FORMS_KEY GitHub Actions secret.'
-  );
-}
-
-const staticFormsAction = 'https://www.staticforms.dev/api/submit';
+const contactApiAction = 'https://zentip-contact-api.snowy-dust-5967.workers.dev';
+const turnstileSiteKey = '0x4AAAAAAEBAQjbpimOr_xXX';
 ---
 
 <Layout metadata={metadata}>
@@ -29,12 +22,16 @@ const staticFormsAction = 'https://www.staticforms.dev/api/submit';
   <ContactUs
     id="feedback"
     formId="zentip-uninstall-feedback"
-    action={staticFormsAction}
+    action={contactApiAction}
     method="POST"
+    formKind="uninstall-feedback"
     hiddenInputs={[
-      { name: 'apiKey', value: staticFormsKey },
+      { name: 'name', value: 'Former Zentip user' },
+      { name: 'email', value: 'uninstall-feedback@users.noreply.zentip.org' },
       { name: 'subject', value: 'Zentip uninstall feedback' },
     ]}
+    turnstileSiteKey={turnstileSiteKey}
+    turnstileAction="contact"
     title="What made you uninstall Zentip?"
     subtitle="A quick answer helps decide what to improve next. The form is optional and does not receive your Zendesk domain, account, or ticket data."
     inputs={[
@@ -85,7 +82,7 @@ const staticFormsAction = 'https://www.staticforms.dev/api/submit';
       },
       {
         type: 'email',
-        name: 'email',
+        name: 'replyEmail',
         label: 'Email (optional)',
         autocomplete: 'email',
         placeholder: 'Only if you would like a reply',
@@ -108,6 +105,6 @@ const staticFormsAction = 'https://www.staticforms.dev/api/submit';
     button="Send feedback"
     successMessage="Thank you. Your feedback has been sent and will help make Zentip better."
     errorMessage="Sorry, we could not send your feedback. You can email support@zentip.org instead."
-    description="The response is delivered to support@zentip.org through Static Forms. See the Privacy Policy for details."
+    description="Spam protection is provided by Cloudflare Turnstile. Your feedback is sent securely to the Zentip support desk in Zendesk."
   />
 </Layout>

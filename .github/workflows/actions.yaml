@@ -11,8 +11,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      PUBLIC_STATIC_FORMS_KEY: sf_ci_placeholder
     defaults:
       run:
         working-directory: astrowind
@@ -34,8 +32,6 @@ jobs:
 
   check:
     runs-on: ubuntu-latest
-    env:
-      PUBLIC_STATIC_FORMS_KEY: sf_ci_placeholder
     defaults:
       run:
         working-directory: astrowind

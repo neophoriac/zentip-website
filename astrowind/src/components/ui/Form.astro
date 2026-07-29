@@ -12,6 +12,9 @@ const {
   method = 'POST',
   formId = 'contact-form',
   hiddenInputs = [],
+  formKind = 'default',
+  turnstileSiteKey,
+  turnstileAction = 'contact',
   successMessage = 'Thanks! Your message has been sent to Zentip support.',
   errorMessage = 'Sorry, we could not send your message. Please try again or email support@zentip.org.',
 } = Astro.props;
@@ -19,7 +22,13 @@ const {
 const statusId = `${formId}-status`;
 ---
 
-<form id={formId} action={action} method={method} data-enhanced-form={action ? 'true' : undefined}>
+<form
+  id={formId}
+  action={action}
+  method={method}
+  data-enhanced-form={action ? 'true' : undefined}
+  data-form-kind={formKind}
+>
   {hiddenInputs.map(({ name, value }) => <input type="hidden" name={name} value={value} />)}
 
   <div class="absolute -left-[10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
@@ -135,6 +144,25 @@ const statusId = `${formId}-status`;
   }
 
   {
+    turnstileSiteKey && (
+      <div class="mt-6">
+        <div
+          class="min-h-[65px]"
+          data-turnstile
+          data-turnstile-site-key={turnstileSiteKey}
+          data-turnstile-action={turnstileAction}
+          aria-label="Spam protection verification"
+        />
+        <noscript>
+          <p class="mt-2 text-sm text-red-700 dark:text-red-300">
+            JavaScript is required to verify and submit this form. You can email support@zentip.org instead.
+          </p>
+        </noscript>
+      </div>
+    )
+  }
+
+  {
     button && (
       <div class="mt-10 grid">
         <Button variant="primary" type="submit" data-form-submit aria-describedby={statusId}>
@@ -165,6 +193,61 @@ const statusId = `${formId}-status`;
 </form>
 
 <script>
+  type TurnstileApi = {
+    render: (
+      container: HTMLElement,
+      options: {
+        sitekey: string;
+        action: string;
+        theme: 'auto';
+      }
+    ) => string;
+    reset: (widgetId: string) => void;
+  };
+
+  type FormResponse = {
+    success?: boolean;
+    message?: string;
+    error?: string;
+    errors?: Array<{ message?: string }> | Record<string, string | string[]>;
+  };
+
+  const turnstileWindow = window as typeof window & { turnstile?: TurnstileApi };
+  let turnstileLoadPromise: Promise<TurnstileApi> | undefined;
+
+  const loadTurnstile = () => {
+    if (turnstileWindow.turnstile) return Promise.resolve(turnstileWindow.turnstile);
+    if (turnstileLoadPromise) return turnstileLoadPromise;
+
+    turnstileLoadPromise = new Promise<TurnstileApi>((resolve, reject) => {
+      const existingScript = document.querySelector<HTMLScriptElement>('script[data-turnstile-script]');
+      const script = existingScript || document.createElement('script');
+
+      const handleLoad = () => {
+        if (turnstileWindow.turnstile) {
+          resolve(turnstileWindow.turnstile);
+        } else {
+          reject(new Error('The verification service did not load.'));
+        }
+      };
+
+      const handleError = () => reject(new Error('The verification service could not be loaded.'));
+
+      script.addEventListener('load', handleLoad, { once: true });
+      script.addEventListener('error', handleError, { once: true });
+
+      if (!existingScript) {
+        script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+        script.async = true;
+        script.defer = true;
+        script.dataset.turnstileScript = 'true';
+        document.head.append(script);
+      }
+    });
+
+    return turnstileLoadPromise;
+  };
+
   const initializeEnhancedForms = () => {
     document.querySelectorAll<HTMLFormElement>('form[data-enhanced-form="true"]').forEach((form) => {
       if (form.dataset.initialized === 'true') return;
@@ -178,14 +261,7 @@ const statusId = `${formId}-status`;
       const successMessage = status.dataset.successMessage || 'Your message has been sent.';
       const defaultErrorMessage = status.dataset.errorMessage || 'Your message could not be sent.';
 
-      type StaticFormsResponse = {
-        success?: boolean;
-        message?: string;
-        error?: string;
-        errors?: Array<{ message?: string }> | Record<string, string | string[]>;
-      };
-
-      const getResponseError = (result: StaticFormsResponse | null) => {
+      const getResponseError = (result: FormResponse | null) => {
         if (!result) return '';
         if (result.message) return result.message;
         if (result.error) return result.error;
@@ -248,25 +324,82 @@ const statusId = `${formId}-status`;
         }
       };
 
+      const turnstileContainer = form.querySelector<HTMLElement>('[data-turnstile]');
+
+      if (turnstileContainer) {
+        const sitekey = turnstileContainer.dataset.turnstileSiteKey;
+        const action = turnstileContainer.dataset.turnstileAction || 'contact';
+
+        if (sitekey) {
+          loadTurnstile()
+            .then((turnstile) => {
+              if (!turnstileContainer.isConnected || turnstileContainer.dataset.turnstileWidgetId) return;
+
+              turnstileContainer.dataset.turnstileWidgetId = turnstile.render(turnstileContainer, {
+                sitekey,
+                action,
+                theme: 'auto',
+              });
+            })
+            .catch(() => {
+              showStatus(
+                'Spam protection could not load. Please refresh the page or email support@zentip.org.',
+                'error'
+              );
+            });
+        }
+      }
+
       form.addEventListener('submit', async (event) => {
         event.preventDefault();
 
         if (!form.reportValidity()) return;
+
+        if (turnstileContainer) {
+          const token = form.querySelector<HTMLInputElement>('input[name="cf-turnstile-response"]')?.value;
+          if (!token) {
+            showStatus('Please complete the spam protection check before sending your message.', 'error');
+            return;
+          }
+        }
 
         submitButton.disabled = true;
         submitButton.textContent = 'Sending…';
         showStatus('Sending your message…', 'loading');
 
         try {
+          const submissionData = new FormData(form);
+
+          if (form.dataset.formKind === 'uninstall-feedback') {
+            const reason = String(submissionData.get('reason') || '').trim();
+            const comments = String(submissionData.get('message') || '').trim();
+            const replyEmail = String(submissionData.get('replyEmail') || '').trim();
+
+            submissionData.set('email', replyEmail || String(submissionData.get('email') || ''));
+            submissionData.set(
+              'message',
+              [
+                `Reason: ${reason}`,
+                '',
+                'Additional comments:',
+                comments || 'No additional comments provided.',
+                '',
+                `Reply requested: ${replyEmail ? 'Yes' : 'No'}`,
+              ].join('\n')
+            );
+            submissionData.delete('reason');
+            submissionData.delete('replyEmail');
+          }
+
           const response = await fetch(form.action, {
             method: form.method,
-            body: new FormData(form),
+            body: submissionData,
             headers: {
               Accept: 'application/json',
             },
           });
 
-          const result = (await response.json().catch(() => null)) as StaticFormsResponse | null;
+          const result = (await response.json().catch(() => null)) as FormResponse | null;
 
           if (!response.ok || result?.success === false) {
             throw new Error(getResponseError(result) || defaultErrorMessage);
@@ -277,6 +410,11 @@ const statusId = `${formId}-status`;
         } catch (error) {
           showStatus(error instanceof Error ? error.message : defaultErrorMessage, 'error');
         } finally {
+          const widgetId = turnstileContainer?.dataset.turnstileWidgetId;
+          if (widgetId && turnstileWindow.turnstile) {
+            turnstileWindow.turnstile.reset(widgetId);
+          }
+
           submitButton.disabled = false;
           submitButton.textContent = buttonLabel;
         }

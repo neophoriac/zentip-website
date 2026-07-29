@@ -192,6 +192,9 @@ export interface Form {
   hiddenInputs?: Array<{ name: string; value: string }>;
   textarea?: Textarea;
   disclaimer?: Disclaimer;
+  formKind?: 'default' | 'uninstall-feedback';
+  turnstileSiteKey?: string;
+  turnstileAction?: string;
   button?: string;
   description?: string;
   action?: string;

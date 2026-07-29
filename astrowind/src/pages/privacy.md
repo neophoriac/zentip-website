@@ -3,7 +3,7 @@ title: 'Privacy Policy'
 layout: '~/layouts/MarkdownLayout.astro'
 ---
 
-_Last updated: July 27, 2026_
+_Last updated: July 29, 2026_
 
 This Privacy Policy explains how the Zentip browser extension, website, and support service handle information.
 
@@ -80,9 +80,11 @@ The website is hosted by GitHub Pages. GitHub may process technical request info
 
 ## Contacting support and uninstall feedback
 
-If you use the website contact form, the name, email address, subject, and message you provide are processed by [Static Forms](https://www.staticforms.dev/privacy-policy) and delivered to the Zentip support inbox. If you submit the optional uninstall-feedback form, Static Forms processes the reason and comments you provide, plus your email address only if you choose to enter it. Opening the uninstall page does not automatically send your Zendesk domain, account information, ticket data, or an extension identifier.
+If you use the website contact form, the name, email address, subject, and message you provide are sent through a Cloudflare Worker and stored in Zendesk as a support ticket. If you submit the optional uninstall-feedback form, the selected reason and comments are handled in the same way, plus your email address only if you choose to enter it. Opening the uninstall page does not automatically send your Zendesk domain, account information, ticket data, or an extension identifier.
 
-Static Forms also applies spam filtering and stores submitted information according to the retention period for Zentip's plan. You can instead contact support directly by email.
+[Cloudflare Turnstile](https://www.cloudflare.com/en-in/turnstile-privacy-policy/) processes technical information needed to distinguish legitimate submissions from automated abuse. The Worker processes each submission in transit and does not intentionally store a separate copy of the message.
+
+You can instead contact support directly by email. Cloudflare, Zendesk, and the email provider process information under their own privacy practices. Review [Cloudflare's Privacy Policy](https://www.cloudflare.com/policies/privacy/) and [Zendesk's Privacy Notice](https://www.zendesk.com/company/agreements-and-terms/privacy-notice/) for more information.
 
 This information is used to respond to your request, understand why people stop using Zentip, improve the product, maintain the security and reliability of Zentip, and establish or defend legal claims when necessary. The legal bases are taking steps at your request, performing the Zentip contract, and legitimate interests in providing support, improving Zentip, and protecting the service.
 
@@ -95,7 +97,9 @@ Depending on how you use Zentip, information may be processed by:
 - ExtensionPay for trials, subscription access, and account activation
 - Stripe for payment processing
 - GitHub for website hosting
-- Static Forms and the email provider for contact and support messages
+- Cloudflare for contact-form delivery and spam protection
+- Zendesk for contact-form messages and uninstall-feedback tickets
+- The email provider for direct support messages
 - A webhook provider selected and configured by you
 - Professional advisers or public authorities where reasonably necessary or legally required
 
@@ -108,7 +112,7 @@ Zentip does not sell personal information.
 - Local extension settings and webhook URLs remain in your browser until you clear or replace them, reset or uninstall Zentip, or the browser removes them.
 - Cached tickets and notification history remain until you clear them, the configured retention or clear-on-close rule applies, Zendesk access is lost and the cache is reduced, you uninstall Zentip, or the browser removes them.
 - Synced non-secret preferences remain subject to your Chrome sync settings and may need to be cleared from other synced profiles separately.
-- Static Forms currently retains form-submission records for 30 days on its Free plan. Copies delivered to the support inbox and subsequent support correspondence are normally retained for up to 24 months after the last interaction, unless needed longer for an active issue, security, legal claims, or a legal obligation.
+- Contact-form messages, uninstall feedback, and subsequent support correspondence in Zendesk are normally retained for up to 24 months after the last interaction, unless needed longer for an active issue, security, legal claims, or a legal obligation.
 - Subscription and transaction records are retained for as long as reasonably needed to provide access, process refunds, prevent abuse, and satisfy accounting or legal requirements.
 - Third-party providers apply their own retention periods to information they control.
 
@@ -140,7 +144,7 @@ Zentip does not use personal information for advertising profiles or automated d
 
 ## Third-party services
 
-Your use of Zendesk and other third-party services remains subject to their own terms and privacy practices. Zentip does not control how Zendesk, ExtensionPay, Stripe, GitHub, Static Forms, your email provider, or a webhook provider processes information through its own services.
+Your use of Zendesk and other third-party services remains subject to their own terms and privacy practices. Zentip does not control how Zendesk, ExtensionPay, Stripe, GitHub, Cloudflare, your email provider, or a webhook provider processes information through its own services.
 
 ## Changes to this policy
 

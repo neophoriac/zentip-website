@@ -8,15 +8,8 @@ const metadata = {
   title: 'Contact',
 };
 
-const staticFormsKey = import.meta.env.PUBLIC_STATIC_FORMS_KEY?.trim();
-
-if (!staticFormsKey) {
-  throw new Error(
-    'PUBLIC_STATIC_FORMS_KEY is required. Add it to astrowind/.env locally and to the STATIC_FORMS_KEY GitHub Actions secret.'
-  );
-}
-
-const staticFormsAction = 'https://www.staticforms.dev/api/submit';
+const contactApiAction = 'https://zentip-contact-api.snowy-dust-5967.workers.dev';
+const turnstileSiteKey = '0x4AAAAAAEBAQjbpimOr_xXX';
 ---
 
 <Layout metadata={metadata}>
@@ -27,9 +20,10 @@ const staticFormsAction = 'https://www.staticforms.dev/api/submit';
   <ContactUs
     id="form"
     formId="zentip-contact-form"
-    action={staticFormsAction}
+    action={contactApiAction}
     method="POST"
-    hiddenInputs={[{ name: 'apiKey', value: staticFormsKey }]}
+    turnstileSiteKey={turnstileSiteKey}
+    turnstileAction="contact"
     title="How can we help?"
     subtitle="Tell us what you need and your message will be delivered to the Zentip support inbox."
     inputs={[
@@ -93,7 +87,7 @@ const staticFormsAction = 'https://www.staticforms.dev/api/submit';
       required: true,
     }}
     button="Send to Zentip support"
-    description="Submissions are delivered to support@zentip.org through Static Forms."
+    description="Spam protection is provided by Cloudflare Turnstile. Your message is sent securely to the Zentip support desk in Zendesk."
   />
 
   <!-- Features2 Widget ************** -->
